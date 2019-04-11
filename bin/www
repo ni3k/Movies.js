@@ -13,6 +13,7 @@ var http = require('http');
  */
 
 var port = normalizePort(process.env.PORT || '4000');
+console.log('listening on localhost:',port);
 app.set('port', port);
 
 /**
