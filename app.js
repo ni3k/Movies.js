@@ -10,6 +10,8 @@ var allMovies = require('./routes/allMovies');
 var getMovieById = require('./routes/getMovieById');
 var getRandomMovie = require('./routes/getRandomMovie');
 var getMoviesByGenre = require('./routes/getMoviesByGenre');
+var getGenresByMovie = require('./routes/getMovieGenres');
+var getGenreId = require('./routes/getGenre');
 
 var app = express();
 
@@ -32,6 +34,8 @@ app.use('/all_movies', allMovies);
 app.use('/movie', getMovieById);
 app.use('/random_movie', getRandomMovie);
 app.use('/by_genre', getMoviesByGenre);
+app.use('/moviegenre', getGenresByMovie);
+app.use('/genreid', getGenreId);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
