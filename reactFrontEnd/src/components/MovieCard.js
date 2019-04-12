@@ -3,25 +3,25 @@ import { Popup, Card, Rating, Image } from 'semantic-ui-react'
 
 
 
-const MovieCard = () => {
+const MovieCard = ({title, description, rating, genres, poster}) => {
   return (
     <div>
       <Popup trigger = 
       {
-        <Card>
-          <Image src='https://react.semantic-ui.com/images/movies/totoro-horizontal.jpg' />
+        <Card style = { { height: 350 }}>
+          <Image size='medium' fluid style={{ maxHeight: 250, backgroundImage: 'https://react.semantic-ui.com/images/movies/totoro-horizontal.jpg' }} src={poster === 'N/A' ? 'https://react.semantic-ui.com/images/movies/totoro-horizontal.jpg' : poster} />
           <Card.Content>
-            <Card.Header>My Neighbor Totoro</Card.Header>
+            <Card.Header>{title}</Card.Header>
              <Card.Description>
-               Two sisters move to the country with their father in order to be closer to their
-                hospitalized mother, and discover the surrounding trees are inhabited by magical spirits.
+               {description}
+               {genres}
              </Card.Description>
           </Card.Content>
         </Card>
       } >
       <Popup.Header>User Rating</Popup.Header>
       <Popup.Content>
-        <Rating icon='star' defaultRating={3} maxRating={4} />
+        <Rating icon='star' defaultRating={rating} maxRating={10} />
       </Popup.Content>
     </Popup>
     </div>

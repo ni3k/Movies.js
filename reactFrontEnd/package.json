@@ -4,10 +4,14 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "axios": "^0.18.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-redux": "^7.0.1",
     "react-router-dom": "^5.0.0",
     "react-scripts": "2.1.8",
+    "redux": "^4.0.1",
+    "redux-thunk": "^2.3.0",
     "semantic-ui-react": "^0.86.0"
   },
   "scripts": {
@@ -24,5 +28,10 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.16.0"
+  }
 }

@@ -1,23 +1,17 @@
-// import React from 'react';
-// import ReactDOM from 'react-dom';
-//     import App from './components/App';
-//     import AdminApp from './components/AdminApp';
-//     import * as serviceWorker from './serviceWorker';
-//     import { Route, BrowserRouter as Router } from 'react-router-dom'
-
-// // import 'semantic-ui-css/semantic.min.css'
-
-
-//   ReactDOM.render(routing, document.getElementById('root'))
-
 import React from 'react';
 import * as serviceWorker from './serviceWorker';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import configureStore from './store/configureStore';
+
 import { Route, BrowserRouter as Router } from 'react-router-dom';
 import App from './components/App';
 import Menu from './components/Menu';
 
+const store = configureStore();
+
 const routing = (
+  <Provider store={store}>
     <Router>
       <div>
         <Menu />
@@ -25,6 +19,7 @@ const routing = (
 
       </div>
     </Router>
+    </Provider>
   )
 
 ReactDOM.render(routing, document.querySelector('#root'));

@@ -1,22 +1,23 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var allMovies = require('./routes/allMovies');
-var getMovieById = require('./routes/getMovieById');
-var getRandomMovie = require('./routes/getRandomMovie');
-var getMoviesByGenre = require('./routes/getMoviesByGenre');
-var getGenresByMovie = require('./routes/getMovieGenres');
-var getGenreId = require('./routes/getGenre');
+const app = express();
+const cors = require('cors');
 
-var app = express();
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
+const allMovies = require('./routes/allMovies');
+const getMovieById = require('./routes/getMovieById');
+const getRandomMovie = require('./routes/getRandomMovie');
+const getMoviesByGenre = require('./routes/getMoviesByGenre');
+const getGenresByMovie = require('./routes/getMovieGenres');
+const getGenreId = require('./routes/getGenre');
 
-//database
-const db = require('./config/database');
+app.use(cors());
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -38,12 +39,12 @@ app.use('/moviegenre', getGenresByMovie);
 app.use('/genreid', getGenreId);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use((err, req, res) => {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
