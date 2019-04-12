@@ -5,7 +5,7 @@ const Movie = require('../modeles/movie');
 let rawdata = fs.readFileSync('movies.json');
 let Movies = JSON.parse(rawdata);
 var i = 0;
-Movies.length = 100;
+Movies.length = 1000;
 const insert = async (callback) => {
     await Movie.sync({force: true});
     for (const movie of Movies){
