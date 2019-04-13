@@ -1,14 +1,14 @@
-const express = require('express');
+import { Router } from 'express';
 
-const router = express.Router();
-const Movies = require('../modeles/movie');
-const Relations = require('../modeles/relationGenreMovie');
+const router = Router();
+import { findAndCountAll, findAll } from '../modeles/movie';
+import { findAll as _findAll } from '../modeles/relationGenreMovie';
 
 
 const getMoviesIdByGenres = async (genres) => {
   let movieIds = [];
   await Promise.all(genres.map(async (genre) => {
-    const relationObjects = await Relations.findAll(
+    const relationObjects = await _findAll(
       {
         raw: true,
         where: { idGenre: parseInt(genre, 10) },
@@ -31,14 +31,14 @@ router.get('/', async (req, res) => {
   // check if there are any params
   if (typeof req.query.genres === 'undefined') res.end(JSON.stringify({ movies: [] }));
   else {
-    const { count } = (await Movies.findAndCountAll());
+    const { count } = (await findAndCountAll());
     const pages = Math.ceil(count / limit);
     if (page > pages) res.end(JSON.stringify({ movies: [] }));
     offset = limit * (page - 1);
 
     const genres = req.query.genres.split(',');
     const movieIds = await getMoviesIdByGenres(genres);
-    const foundMovies = await Movies.findAll(
+    const foundMovies = await findAll(
       {
         where: { id: movieIds },
         limit,
@@ -49,4 +49,4 @@ router.get('/', async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

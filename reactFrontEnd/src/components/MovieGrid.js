@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux';
-import { itemsFetchData } from '../actions/items';
 import { Grid, Container, Header, Divider } from 'semantic-ui-react'
+import { itemsFetchData } from '../actions/items';
 import MovieCard from './MovieCard';
 
 class CardExampleColumnCount extends React.Component {

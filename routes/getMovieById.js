@@ -1,15 +1,15 @@
-const express = require('express');
+import { Router } from 'express';
 
-const router = express.Router();
-const Movies = require('../modeles/movie');
+const router = Router();
+import { findOne } from '../modeles/movie';
 
 /* GET  movie by id. */
 router.get('/:id', async (req, res) => {
   const { id } = req.params;
-  const MoviesJson = await Movies.findOne({ where: { id }, raw: true });
+  const MoviesJson = await findOne({ where: { id }, raw: true });
 
   res.setHeader('Content-Type', 'application/json');
   res.end(JSON.stringify({ movies: [MoviesJson] }));
 });
 
-module.exports = router;
+export default router;

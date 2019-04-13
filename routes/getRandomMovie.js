@@ -1,17 +1,17 @@
-const express = require('express');
+import { Router } from 'express';
 
-const router = express.Router();
-const randomInt = require('random-int');
-const Movies = require('../modeles/movie');
+const router = Router();
+import randomInt from 'random-int';
+import { max, findOne } from '../modeles/movie';
 
 /* GET random movie. */
 router.get('/', async (req, res) => {
-  const topId = await Movies.max('id');
+  const topId = await max('id');
   const id = randomInt(1, topId);
-  const MoviesJson = await Movies.findOne({ where: { id }, raw: true });
+  const MoviesJson = await findOne({ where: { id }, raw: true });
 
   res.setHeader('Content-Type', 'application/json');
   res.end(JSON.stringify({ movies: [MoviesJson] }));
 });
 
-module.exports = router;
+export default router;

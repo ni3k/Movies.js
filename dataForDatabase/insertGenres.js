@@ -8,6 +8,7 @@ const Genres = JSON.parse(rawdata);
 
 const insert = async (callback) => {
   await GenresDb.sync({ force: true });
+  
   for (const genre of Genres) {
     console.log(genre);
     await GenresDb.create(

@@ -1,13 +1,14 @@
 // 59603cd
 import { get } from "axios";
-import Movie from "../models/movie";
+import { writeFile } from "fs";
 
 import { slice } from "./movies.json";
 
 const finalMovies = slice(0, 900);
-const insert = async callback => {
-  await Movie.sync({ force: true });
 
+// console.log(finalMovies.length)
+
+const insert = async () => {
   const promises = finalMovies.map(async movie => {
     const { title, year } = movie;
     const { data } = await get(
@@ -26,10 +27,12 @@ const insert = async callback => {
   });
 
   const movieBody = await Promise.all(promises);
-  await Movie.bulkCreate(movieBody);
 
-  await callback();
+  const stringifyMovies = JSON.stringify(movieBody);
+  writeFile("./generatedMovies.json", stringifyMovies, "utf8", e => {
+    console.log(e);
+  });
+  // await callback();
 };
-insert(() => {
-  Movie.findAll().then(res => console.log(res));
-});
+
+insert();

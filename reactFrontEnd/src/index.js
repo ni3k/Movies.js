@@ -1,10 +1,10 @@
 import React from 'react';
-import * as serviceWorker from './serviceWorker';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
+import { Route, BrowserRouter as Router } from 'react-router-dom';
 import configureStore from './store/configureStore';
 
-import { Route, BrowserRouter as Router } from 'react-router-dom';
+import * as serviceWorker from './serviceWorker';
 import App from './components/App';
 import Menu from './components/Menu';
 
@@ -20,7 +20,7 @@ const routing = (
       </div>
     </Router>
     </Provider>
-  )
+);
 
 ReactDOM.render(routing, document.querySelector('#root'));
 
