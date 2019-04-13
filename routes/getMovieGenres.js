@@ -1,16 +1,20 @@
-import { Router } from 'express';
+const express = require("express");
 
-const router = Router();
+const router = express.Router();
 
-import { findAll } from '../modeles/relationGenreMovie';
+const relationDb = require("../models/relationGenreMovie");
 
 /* GET  genres by movie. */
-router.get('/:idMovie', async (req, res) => {
-  const { idMovie } = req.params;
-  console.log(idMovie);
-  const relationsJson = (await findAll({ attributes: ['idGenre'], raw: true, where: { idMovie } })).map(relation => relation.idGenre);
-  res.setHeader('Content-Type', 'application/json');
+router.get("/:movieId", async (req, res) => {
+  const { movieId } = req.params;
+  console.log(movieId);
+  const relationsJson = (await relationDb.findAll({
+    attributes: ["genreId"],
+    raw: true,
+    where: { movieId }
+  })).map(relation => relation.genreId);
+  res.setHeader("Content-Type", "application/json");
   res.end(JSON.stringify({ genres: relationsJson }));
 });
 
-export default router;
+module.exports = router;

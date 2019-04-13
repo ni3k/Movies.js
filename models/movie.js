@@ -1,27 +1,31 @@
-import { STRING, INTEGER } from "sequelize";
-import { define } from "../config/database";
+const Sequelize = require("sequelize");
+const db = require("../config/database");
 
-const Movie = define("movie", {
-  title: {
-    type: STRING
+const Movie = db.define(
+  "movie",
+  {
+    title: {
+      type: Sequelize.STRING
+    },
+    year: {
+      type: Sequelize.INTEGER
+    },
+    description: {
+      type: Sequelize.STRING
+    },
+    rating: {
+      type: Sequelize.STRING
+    },
+    poster: {
+      type: Sequelize.STRING
+    }
   },
-  year: {
-    type: INTEGER
-  },
-  description: {
-    type: STRING
-  },
-  rating: {
-    type: STRING
-  },
-  poster: {
-    type: STRING
+  {
+    // disable the modification of table names; By default, sequelize will automatically
+    // transform all passed model names (first parameter of define) into plural.
+    // if you don't want that, set the following
+    freezeTableName: true
   }
-}, {
-  // disable the modification of table names; By default, sequelize will automatically
-  // transform all passed model names (first parameter of define) into plural.
-  // if you don't want that, set the following
-  freezeTableName: true
-});
+);
 
-export default Movie;
+module.exports = Movie;

@@ -8,18 +8,10 @@ module.exports = {
       },
       movieId: {
         type: Sequelize.INTEGER,
-        references: {
-          model: "movie",
-          key: "id"
-        },
         allowNull: false
       },
       genreId: {
         type: Sequelize.INTEGER,
-        references: {
-          model: "genres",
-          key: "id"
-        },
         allowNull: false
       },
       createdAt: Sequelize.DATE,

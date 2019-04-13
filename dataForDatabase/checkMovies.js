@@ -1,3 +1,3 @@
-const Movie = require('../modeles/movie');
+const Movies = require('../models/movie');
 
-Movie.findAll().then(res => console.log(res));
+Movies.findAll().then(res => console.log(res));

@@ -9,10 +9,18 @@ module.exports = {
       },
       title: {
         type: Sequelize.STRING
+      },
+      createdAt: {
+        type: Sequelize.DATE,
+        default: Sequelize.NOW
+      },
+      updatedAt: {
+        type: Sequelize.DATE,
+        default: Sequelize.NOW
       }
     });
   },
   down(queryInterface) {
-    return queryInterface.dropTable("movie");
+    return queryInterface.dropTable("genres");
   }
 };

@@ -1,34 +1,39 @@
+const fs = require("fs");
+const GenresDb = require("../models/genres");
+const Movie = require("../models/movie");
 
-const fs = require('fs');
-const GenresDb = require('../modeles/genres');
-const Movie = require('../modeles/movie');
-
-const rawdata = fs.readFileSync('movies.json');
-const Relations = require('../modeles/relationGenreMovie');
+const rawdata = fs.readFileSync("movies.json");
 
 const Movies = JSON.parse(rawdata);
-Movies.length = 1000;
-const insert = async (callback) => {
-  await Relations.sync({ force: true });
-  for (const movie of Movies) {
-    if (movie.genres.length != 0) {
-      for (const g of movie.genres) {
-        const { title } = movie;
-        const idGenre = (await GenresDb.findOne({ where: { title: g } })).id;
-        const idMovie = (await Movie.findOne({ where: { title } })).id;
+const finalMovies = Movies.slice(0, 900);
+const insert = async () => {
+  // await Relations.sync({ force: true });
 
-        await Relations.create(
-          {
-            idGenre,
-            idMovie,
-          },
-        );
-      }
+  const allGenres = await GenresDb.findAll({ raw: true });
+  const promise = finalMovies.map(async dataMovie => {
+    const { title, genres } = dataMovie;
+    const { id: movieId } = await Movie.findOne({ where: { title } });
+    const relation = await Promise.all(
+      genres.map(async genre => {
+        const { id: genreId } = allGenres.find(g => g.title === genre);
+        return { movieId, genreId };
+      })
+    );
+    if (relation.length !== 0) return relation;
+    return [{ movieId, genreId: -1 }];
+    // console.log(relation);
+  });
+  const data = await Promise.all(promise);
+  // eslint-disable-next-line prefer-spread
+  const mergedData = [].concat.apply([], data);
+  await console.log(mergedData);
+  fs.writeFile(
+    "./generatedRelations.json",
+    JSON.stringify(mergedData),
+    "utf8",
+    e => {
+      console.log(e);
     }
-  }
-  await callback();
+  );
 };
-
-insert(() => {
-  Relations.findAll().then(res => console.log(res));
-});
+insert();
