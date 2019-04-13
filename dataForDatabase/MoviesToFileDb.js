@@ -1,18 +1,20 @@
 // 59603cd
-import { get } from "axios";
-import { writeFile } from "fs";
+//b4ddd8cd
+//67169eb
+const axios = require('axios');
+const fs = require('fs');
 
-import { slice } from "./movies.json";
+const dataMovies =  require("./movies.json");
 
-const finalMovies = slice(0, 900);
+const finalMovies = dataMovies.slice(dataMovies.length-900, dataMovies.length);
 
 // console.log(finalMovies.length)
 
 const insert = async () => {
   const promises = finalMovies.map(async movie => {
     const { title, year } = movie;
-    const { data } = await get(
-      `http://www.omdbapi.com/?apikey=59603cd&t=${encodeURI(
+    const { data } = await axios.get(
+      `http://www.omdbapi.com/?apikey=67169eb&t=${encodeURI(
         title.split(" ").join("+")
       )}&y=${encodeURI(year)}`
     );
@@ -22,14 +24,15 @@ const insert = async () => {
       year,
       description: data.Plot,
       rating: data.imdbRating,
-      poster: data.Poster
+      poster: data.Poster,
+      imdbID: data.imdbID
     };
   });
 
   const movieBody = await Promise.all(promises);
 
   const stringifyMovies = JSON.stringify(movieBody);
-  writeFile("./generatedMovies.json", stringifyMovies, "utf8", e => {
+  fs.writeFile("./generatedMovies.json", stringifyMovies, "utf8", e => {
     console.log(e);
   });
   // await callback();

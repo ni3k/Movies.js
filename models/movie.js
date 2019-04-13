@@ -11,14 +11,17 @@ const Movie = db.define(
       type: Sequelize.INTEGER
     },
     description: {
-      type: Sequelize.STRING
+      type: Sequelize.TEXT
     },
     rating: {
       type: Sequelize.STRING
     },
     poster: {
       type: Sequelize.STRING
-    }
+    },
+    imdbID: {
+      type: Sequelize.STRING
+    },
   },
   {
     // disable the modification of table names; By default, sequelize will automatically

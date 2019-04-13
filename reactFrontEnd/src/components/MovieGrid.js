@@ -1,27 +1,32 @@
 import React from 'react'
 import { connect } from 'react-redux';
 import { Grid, Container, Header, Divider } from 'semantic-ui-react'
-import { itemsFetchData } from '../actions/items';
+import { itemsFetchData, selectMovie } from '../actions/items';
 import MovieCard from './MovieCard';
 
-class CardExampleColumnCount extends React.Component {
+class MovieGrid extends React.Component {
     componentDidMount(){
         this.props.fetchData("http://localhost:4000/all_movies");
     }
     render() {
         const {hasErrored, isLoading, items} = this.props;
-        
+        if (items.length === 0)
+            return <div> Loading </div>
         console.log(items);
         const renderedMovies = items.map((item) => {
-            let description = item.description.substring(0, Math.min(95, item.description.length)) + "...";
+            console.log(item);
+            let description = "no description";
+            if (item.description !== null)
+            description = item.description.substring(0, Math.min(95, item.description.length)) + "...";
             
-            return <Grid.Column stretched> <MovieCard title = { item.title }
+            return <Grid.Column stretched key = { item.id } onClick = { (e) => {this.props.handeClick(item.id)} }> <MovieCard title = { item.title }
                                             key = { item.id }
                                             year = { item.year }
                                             description = { description }
                                             rating = { item.rating }
                                             poster = { item.poster }
                                             id = { item.id }
+                                            
                                             /> </Grid.Column>;
         }) 
         if (hasErrored) {
@@ -45,6 +50,7 @@ class CardExampleColumnCount extends React.Component {
 }
 
 const mapStateToProps = (state) => {
+    console.log(state);
     return {
         items: state.items,
         hasErrored: state.itemsHasErrored,
@@ -54,8 +60,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        fetchData: (url) => dispatch(itemsFetchData(url))
+        fetchData: (url) => dispatch(itemsFetchData(url)),
+        handeClick: (id) => dispatch(selectMovie(id))
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CardExampleColumnCount);
+export default connect(mapStateToProps, mapDispatchToProps)(MovieGrid);

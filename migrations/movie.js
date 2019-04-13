@@ -14,12 +14,15 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       description: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT
       },
       rating: {
         type: Sequelize.STRING
       },
       poster: {
+        type: Sequelize.STRING
+      },
+      imdbID: {
         type: Sequelize.STRING
       },
       createdAt: {

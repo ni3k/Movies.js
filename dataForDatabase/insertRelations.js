@@ -5,7 +5,7 @@ const Movie = require("../models/movie");
 const rawdata = fs.readFileSync("movies.json");
 
 const Movies = JSON.parse(rawdata);
-const finalMovies = Movies.slice(0, 900);
+const finalMovies = Movies.slice(Movies.length-900, Movies.length);
 const insert = async () => {
   // await Relations.sync({ force: true });
 

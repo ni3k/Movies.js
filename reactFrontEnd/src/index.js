@@ -7,6 +7,7 @@ import configureStore from './store/configureStore';
 import * as serviceWorker from './serviceWorker';
 import App from './components/App';
 import Menu from './components/Menu';
+import SingleMovie from './components/SingleMovie';
 
 const store = configureStore();
 
@@ -16,7 +17,7 @@ const routing = (
       <div>
         <Menu />
         <Route exact path="/" component={App} />
-
+        <Route path="/movie/:id" component={SingleMovie} />
       </div>
     </Router>
     </Provider>

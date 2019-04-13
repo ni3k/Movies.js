@@ -18,6 +18,18 @@ export function items(state = [], action) {
   switch (action.type) {
     case "ITEMS_FETCH_DATA_SUCCESS":
       return action.items;
+    case "ITEM_FETCH_DATA_SUCCESS":
+      return action.item;
+    default:
+      return state;
+  }
+}
+export function selectMovie(state = "", action) {
+  switch (action.type) {
+    case "MOVIE_SELECTED_SUCCESFULL":
+      return action.id;
+    case "MOVIE_RENDER_SUCCESFULL":
+      return action;
     default:
       return state;
   }
