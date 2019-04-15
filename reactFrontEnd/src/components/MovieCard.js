@@ -10,7 +10,7 @@ const MovieCard = ({
   <Link to={`/movie/${id}`}>
     <Popup
       trigger={(
-        <Card style={{ height: 350 }}>
+        <Card style={{ height: 350 }} inverted>
           <Image
             fluid
             style={{

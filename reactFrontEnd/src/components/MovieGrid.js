@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import { withRouter } from 'react-router-dom';
 import {
-  Grid, Container, Header, Divider, Pagination,
+  Grid, Container, Header, Divider, Pagination, Segment,
 } from 'semantic-ui-react';
 import { itemsFetchData, selectMovie, setPageRed } from '../actions/items';
 import MovieCard from './MovieCard';
@@ -66,22 +66,26 @@ class MovieGrid extends React.Component {
     }
 
     return (
-      <Container centered textAlign="center">
-        <Header size="huge"> Movies </Header>
-        <Divider />
-        <br />
-        <Grid columns={4} relaxed centered>
+      <Segment inverted>
+        <Container centered textAlign="center">
+          <br />
+          <Header size="huge" inverted> Movies </Header>
+          <Divider />
+          <br />
+          <Grid columns={4} relaxed centered>
 
-          {this.renderMovies()}
-        </Grid>
-        <br />
-        <Pagination
-          defaultActivePage={setedPage}
-          totalPages={7}
-          centered
-          onPageChange={this.onPageChange}
-        />
-      </Container>
+            {this.renderMovies()}
+          </Grid>
+          <br />
+          <Pagination
+            defaultActivePage={setedPage}
+            totalPages={7}
+            centered
+            onPageChange={this.onPageChange}
+            inverted
+          />
+        </Container>
+      </Segment>
     );
   }
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {
-  Embed, Container, Message, Label,
+  Embed, Container, Message, Label, Rating,
 } from 'semantic-ui-react';
 import { itemFetch, itemFetchGenres } from '../actions/items';
 //  1ex5mfpsklibrz1rffy0irtubby51f
@@ -23,6 +23,7 @@ class SingleMovie extends React.Component {
 
   render() {
     const { hasErrored, isLoading, item } = this.props;
+    console.log(parseInt(item.rating, 10));
     if (hasErrored) {
       return <p>Sorry! There was an error loading the items</p>;
     }
@@ -31,7 +32,7 @@ class SingleMovie extends React.Component {
     }
 
     return (
-      <Container>
+      <Container style={{ height: '100vh' }}>
         <br />
         <Message info>
           <Message.Header>
@@ -47,6 +48,7 @@ class SingleMovie extends React.Component {
             url={`https://videospider.stream/getvideo?key=gIBI3N1PHUQ0H9mB&video_id=${item.imdbID}&ticket=${item.Ticket}`}
           />
           {this.renderLabels()}
+          <Rating icon="heart" disabled defaultRating={item.rating} maxRating={10} />
         </Message>
       </Container>
     );

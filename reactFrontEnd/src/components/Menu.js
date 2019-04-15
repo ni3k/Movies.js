@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Menu } from 'semantic-ui-react';
+import { Menu, Segment } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
 export default class MenuExampleSecondaryPointing extends Component {
@@ -11,8 +11,8 @@ export default class MenuExampleSecondaryPointing extends Component {
     const { activeItem } = this.state;
 
     return (
-      <div>
-        <Menu pointing secondary>
+      <Segment inverted>
+        <Menu inverted pointing secondary>
           <Link to="/">
             <Menu.Item
               name="home"
@@ -42,7 +42,7 @@ export default class MenuExampleSecondaryPointing extends Component {
             />
           </Menu.Menu>
         </Menu>
-      </div>
+      </Segment>
     );
   }
 }
