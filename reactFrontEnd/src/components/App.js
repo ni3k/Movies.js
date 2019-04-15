@@ -1,6 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { Route, BrowserRouter as Router } from 'react-router-dom';
+import { Route, Redirect, BrowserRouter as Router } from 'react-router-dom';
 import configureStore from '../store/configureStore';
 
 import Menu from './Menu';
@@ -16,6 +16,7 @@ const App = (
         <Menu />
         <Route exact path="/:page" component={MovieGrid} />
         <Route path="/movie/:id" component={SingleMovie} />
+        <Route exact path="/" render={() => (<Redirect to="/1" />)} />
       </div>
     </Router>
   </Provider>

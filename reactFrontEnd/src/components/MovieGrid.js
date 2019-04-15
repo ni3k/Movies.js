@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-
+import { withRouter } from 'react-router-dom';
 import {
   Grid, Container, Header, Divider, Pagination,
 } from 'semantic-ui-react';
@@ -10,7 +10,18 @@ import MovieCard from './MovieCard';
 
 class MovieGrid extends React.Component {
   componentDidMount() {
-    const { fetchData, setPage, match: { params: { page } } } = this.props;
+    const { match: { params: { page } } } = this.props;
+    this.triggerElements(page);
+  }
+
+  onPageChange = (e, { activePage }) => {
+    const { history } = this.props;
+    history.push(`/${activePage}`);
+    this.triggerElements(activePage);
+  }
+
+  triggerElements(page) {
+    const { fetchData, setPage } = this.props;
     setPage(page);
     fetchData(`/all_movies?page=${page}`);
   }
@@ -64,7 +75,12 @@ class MovieGrid extends React.Component {
           {this.renderMovies()}
         </Grid>
         <br />
-        <Pagination defaultActivePage={setedPage} totalPages={7} centered />
+        <Pagination
+          defaultActivePage={setedPage}
+          totalPages={7}
+          centered
+          onPageChange={this.onPageChange}
+        />
       </Container>
     );
   }
@@ -86,4 +102,4 @@ const mapDispatchToProps = dispatch => ({
   setPage: page => dispatch(setPageRed(page)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(MovieGrid);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(MovieGrid));
