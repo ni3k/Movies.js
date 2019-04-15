@@ -1,19 +1,19 @@
-const express = require("express");
+const express = require('express');
 
 const router = express.Router();
 
-const relationDb = require("../models/relationGenreMovie");
+const relationDb = require('../models/relationGenreMovie');
 
 /* GET  genres by movie. */
-router.get("/:movieId", async (req, res) => {
+router.get('/:movieId', async (req, res) => {
   const { movieId } = req.params;
   console.log(movieId);
   const relationsJson = (await relationDb.findAll({
-    attributes: ["genreId"],
+    attributes: ['genreId'],
     raw: true,
     where: { movieId }
   })).map(relation => relation.genreId);
-  res.setHeader("Content-Type", "application/json");
+  res.setHeader('Content-Type', 'application/json');
   res.end(JSON.stringify({ genres: relationsJson }));
 });
 

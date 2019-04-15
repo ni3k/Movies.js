@@ -1,16 +1,16 @@
-const express = require("express");
+const express = require('express');
 
 const router = express.Router();
-const randomInt = require("random-int");
-const Movie = require("../models/movie");
+const randomInt = require('random-int');
+const Movie = require('../models/movie');
 
 /* GET random movie. */
-router.get("/", async (req, res) => {
-  const topId = await Movie.max("id");
+router.get('/', async (req, res) => {
+  const topId = await Movie.max('id');
   const id = randomInt(1, topId);
   const MoviesJson = await Movie.findOne({ where: { id }, raw: true });
 
-  res.setHeader("Content-Type", "application/json");
+  res.setHeader('Content-Type', 'application/json');
   res.end(JSON.stringify({ movies: [MoviesJson] }));
 });
 

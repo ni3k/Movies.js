@@ -1,8 +1,8 @@
-const Sequelize = require("sequelize");
-const db = require("../config/database");
+const Sequelize = require('sequelize');
+const db = require('../config/database');
 
 const Genres = db.define(
-  "genres",
+  'genres',
   {
     title: {
       type: Sequelize.STRING

@@ -1,8 +1,8 @@
-const Sequelize = require("sequelize");
-const db = require("../config/database");
+const Sequelize = require('sequelize');
+const db = require('../config/database');
 
 const Movie = db.define(
-  "movie",
+  'movie',
   {
     title: {
       type: Sequelize.STRING
@@ -21,7 +21,7 @@ const Movie = db.define(
     },
     imdbID: {
       type: Sequelize.STRING
-    },
+    }
   },
   {
     // disable the modification of table names; By default, sequelize will automatically

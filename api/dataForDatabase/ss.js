@@ -1,3 +1,3 @@
-const MovieArray = require("./generatedMovies.json");
+const MovieArray = require('./generatedMovies.json');
 
 console.log(MovieArray[0]);

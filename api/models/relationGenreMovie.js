@@ -1,8 +1,8 @@
-const Sequelize = require("sequelize");
-const db = require("../config/database");
+const Sequelize = require('sequelize');
+const db = require('../config/database');
 
 const GenreMovie = db.define(
-  "relations",
+  'relations',
   {
     movieId: {
       type: Sequelize.INTEGER,

@@ -1,18 +1,17 @@
-const express = require("express");
+const express = require('express');
 
 const router = express.Router();
-const Movie = require("../models/movie");
+const Movie = require('../models/movie');
 
 /* GET all movies. */
-router.get("/", async (req, res) => {
-  res.setHeader("Content-Type", "application/json");
+router.get('/', async (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
 
   let page = 1;
   const limit = 10;
   let offset = 0;
 
-  if (typeof req.query.page !== "undefined")
-    page = parseInt(req.query.page, 10);
+  if (typeof req.query.page !== 'undefined') page = parseInt(req.query.page, 10);
 
   const { count } = await Movie.findAndCountAll();
   const pages = Math.ceil(count / limit);
@@ -23,7 +22,7 @@ router.get("/", async (req, res) => {
     raw: true,
     limit,
     offset,
-    order: [["year", "DESC"]]
+    order: [['year', 'DESC']]
   });
   console.log(MoviesJson);
 
