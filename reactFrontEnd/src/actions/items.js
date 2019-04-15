@@ -34,10 +34,24 @@ export function selectMovie(id) {
   };
 }
 
+export function setPageRed(page) {
+  return {
+    type: 'PAGE_SET',
+    page,
+  };
+}
+
 export function selectedItem(item) {
   return {
     type: 'ITEM_FETCH_DATA_SUCCESS',
     item,
+  };
+}
+
+export function itemGenres(genres) {
+  return {
+    type: 'ITEM_GENRES_FETCH_SUCCESS',
+    genres,
   };
 }
 
@@ -47,8 +61,17 @@ export function itemFetch(id) {
     const { data: { movies }, statusText } = await api.get(`/movie/${id}`);
     if (statusText !== 'OK') dispatch(itemsHasErrored(true));
     //  converting to object like: id: [object]
-    console.log(movies[0]);
     dispatch(selectedItem(movies[0]));
+    dispatch(itemsIsLoading(false));
+  };
+}
+
+export function itemFetchGenres(id) {
+  return async (dispatch) => {
+    dispatch(itemsIsLoading(true));
+    const { data: { genres }, statusText } = await api.get(`/moviegenre/${id}?string=true`);
+    if (statusText !== 'OK') dispatch(itemsHasErrored(true));
+    dispatch(itemGenres(genres));
     dispatch(itemsIsLoading(false));
   };
 }

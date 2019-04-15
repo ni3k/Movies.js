@@ -3,15 +3,16 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 
 import {
-  Grid, Container, Header, Divider,
+  Grid, Container, Header, Divider, Pagination,
 } from 'semantic-ui-react';
-import { itemsFetchData, selectMovie } from '../actions/items';
+import { itemsFetchData, selectMovie, setPageRed } from '../actions/items';
 import MovieCard from './MovieCard';
 
 class MovieGrid extends React.Component {
   componentDidMount() {
-    const { fetchData } = this.props;
-    fetchData('/all_movies');
+    const { fetchData, setPage, match: { params: { page } } } = this.props;
+    setPage(page);
+    fetchData(`/all_movies?page=${page}`);
   }
 
   renderMovies() {
@@ -40,7 +41,9 @@ class MovieGrid extends React.Component {
 
   render() {
     // console.log(this.renderMovies())
-    const { hasErrored, isLoading, items } = this.props;
+    const {
+      hasErrored, isLoading, items, setedPage,
+    } = this.props;
     if (items.length === 0) { return <div> Loading </div>; }
     console.log(items);
 
@@ -52,7 +55,7 @@ class MovieGrid extends React.Component {
     }
 
     return (
-      <Container>
+      <Container centered textAlign="center">
         <Header size="huge"> Movies </Header>
         <Divider />
         <br />
@@ -60,6 +63,8 @@ class MovieGrid extends React.Component {
 
           {this.renderMovies()}
         </Grid>
+        <br />
+        <Pagination defaultActivePage={setedPage} totalPages={7} centered />
       </Container>
     );
   }
@@ -71,12 +76,14 @@ const mapStateToProps = (state) => {
     items: state.items,
     hasErrored: state.itemsHasErrored,
     isLoading: state.itemsIsLoading,
+    setedPage: state.setedPage,
   };
 };
 
 const mapDispatchToProps = dispatch => ({
   fetchData: url => dispatch(itemsFetchData(url)),
   handeClick: id => dispatch(selectMovie(id)),
+  setPage: page => dispatch(setPageRed(page)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MovieGrid);

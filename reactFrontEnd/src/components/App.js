@@ -1,20 +1,24 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { Provider } from 'react-redux';
+import { Route, BrowserRouter as Router } from 'react-router-dom';
+import configureStore from '../store/configureStore';
+
+import Menu from './Menu';
 import MovieGrid from './MovieGrid';
+import SingleMovie from './SingleMovie';
 
+const store = configureStore();
 
-class App extends Component {
-  componentDidMount() {
-    console.log('s');
-  }
-
-  render() {
-    return (
+const App = (
+  <Provider store={store}>
+    <Router>
       <div>
-        <br />
-        <MovieGrid />
+        <Menu />
+        <Route exact path="/:page" component={MovieGrid} />
+        <Route path="/movie/:id" component={SingleMovie} />
       </div>
-    );
-  }
-}
+    </Router>
+  </Provider>
+);
 
 export default App;

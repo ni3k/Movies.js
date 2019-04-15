@@ -1,13 +1,24 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Embed } from 'semantic-ui-react';
-import { itemFetch } from '../actions/items';
+import {
+  Embed, Container, Message, Label,
+} from 'semantic-ui-react';
+import { itemFetch, itemFetchGenres } from '../actions/items';
 //  1ex5mfpsklibrz1rffy0irtubby51f
 class SingleMovie extends React.Component {
   componentDidMount() {
-    const { match: { params: { id } }, fetchData } = this.props;
-    console.log(id);
+    const { match: { params: { id } }, fetchData, fetchGenres } = this.props;
     fetchData(id);
+    fetchGenres(id);
+  }
+
+  renderLabels() {
+    const { genres } = this.props;
+    return genres.map(genre => (
+      <Label as="a" pointing basic key={genre.id}>
+        {genre.title}
+      </Label>
+    ));
   }
 
   render() {
@@ -20,18 +31,24 @@ class SingleMovie extends React.Component {
     }
 
     return (
-      <div>
-        {item.Ticket}
-        {' '}
-|
-        {' '}
-        {item.imdbID}
-        <Embed
-          icon="right circle arrow"
-          placeholder="/images/image-16by9.png"
-          url={`https://videospider.stream/getvideo?key=gIBI3N1PHUQ0H9mB&video_id=${item.imdbID}&ticket=${item.Ticket}`}
-        />
-      </div>
+      <Container>
+        <br />
+        <Message info>
+          <Message.Header>
+            {item.title}
+          </Message.Header>
+          <p>
+            {item.description}
+          </p>
+
+          <Embed
+            icon="right circle arrow"
+            placeholder="/images/image-16by9.png"
+            url={`https://videospider.stream/getvideo?key=gIBI3N1PHUQ0H9mB&video_id=${item.imdbID}&ticket=${item.Ticket}`}
+          />
+          {this.renderLabels()}
+        </Message>
+      </Container>
     );
   }
 }
@@ -43,11 +60,13 @@ const mapStateToProps = (state) => {
     item: state.selectedItem,
     hasErrored: state.itemsHasErrored,
     isLoading: state.itemsIsLoading,
+    genres: state.itemGenres,
   };
 };
 
 const mapDispatchToProps = dispatch => ({
   fetchData: id => dispatch(itemFetch(id)),
+  fetchGenres: id => dispatch(itemFetchGenres(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SingleMovie);
