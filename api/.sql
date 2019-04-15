@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS `movie` (`id` INTEGER NOT NULL auto_increment , `title` VARCHAR(255), `year` INTEGER, `genres` VARCHAR(255)[], `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB;
