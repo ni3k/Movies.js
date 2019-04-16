@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {
-  Embed, Container, Message, Label, Rating, Grid, Header,
+  Embed, Container, Message, Label, Rating, Grid, Header, Icon,
 } from 'semantic-ui-react';
 import Carousel from 'semantic-ui-carousel-react';
 import _ from 'lodash';
@@ -79,7 +79,7 @@ class SingleMovie extends React.Component {
         <br />
         <Grid>
           <Grid.Row>
-            <Grid.Column width={12}>
+            <Grid.Column computer={12} mobile={16}>
               <Message info>
                 <Message.Header>
                   {item.title}
@@ -97,9 +97,11 @@ class SingleMovie extends React.Component {
                 <Rating icon="heart" disabled defaultRating={item.rating} maxRating={10} />
               </Message>
             </Grid.Column>
-            <Grid.Column width={4}>
+            <Grid.Column width={4} only="computer">
               <Header inverted>
-                Other Movies that you can enjoy here
+                <Icon name="hand point down outline" />
+                <Header.Content>Other Movies that you can enjoy here</Header.Content>
+                <Icon name="hand point down outline" />
               </Header>
               <Carousel
                 elements={this.renderCarousel()}
