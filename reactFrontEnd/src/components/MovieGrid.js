@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import { withRouter } from 'react-router-dom';
 import {
-  Grid, Container, Header, Divider, Pagination, Segment, Responsive,
+  Grid, Container, Header, Divider, Pagination, Segment,
 } from 'semantic-ui-react';
 import { itemsFetchData, selectMovie, setPageRed } from '../actions/items';
 import MovieCard from './MovieCard';
@@ -34,7 +34,14 @@ class MovieGrid extends React.Component {
       if (item.description !== null) { description = `${item.description.substring(0, Math.min(95, item.description.length))}...`; }
 
       return (
-        <Grid.Column computer={4} mobile={10} stretched key={item.id} onClick={() => { handeClick(item.id); }}>
+        <Grid.Column
+          computer={4}
+          mobile={10}
+          stretched
+          key={item.id}
+          onClick={() => { handeClick(item.id); }
+          }
+        >
           <MovieCard
             title={item.title}
             key={item.id}
