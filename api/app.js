@@ -6,6 +6,7 @@ const logger = require('morgan');
 
 const app = express();
 const cors = require('cors');
+const passport = require('passport');
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
@@ -15,9 +16,12 @@ const getRandomMovie = require('./routes/getRandomMovie');
 const getMoviesByGenre = require('./routes/getMoviesByGenre');
 const getGenresByMovie = require('./routes/getMovieGenres');
 const getGenreId = require('./routes/getGenre');
+const registerUser = require('./routes/registerUser');
+const loginUser = require('./routes/loginUser');
+const findUser = require('./routes/findUser');
 
 app.use(cors());
-
+require('./config/passport');
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -27,6 +31,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(passport.initialize());
+
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
@@ -36,6 +42,10 @@ app.use('/random_movie', getRandomMovie);
 app.use('/by_genre', getMoviesByGenre);
 app.use('/moviegenre', getGenresByMovie);
 app.use('/genreid', getGenreId);
+app.use('/register', registerUser);
+app.use('/login', loginUser);
+app.use('/finduser', findUser);
+// app.use('/routes/registerUser', )
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
