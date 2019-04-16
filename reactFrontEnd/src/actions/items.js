@@ -20,6 +20,13 @@ export function itemsFetchDataSuccess(items) {
   };
 }
 
+export function randomItems(items) {
+  return {
+    type: 'RANDOM_ITEMS_SUCCESS',
+    items,
+  };
+}
+
 export function itemFetchDataSuccess(item) {
   return {
     type: 'ITEM_FETCH_DATA_SUCCESS',
@@ -82,5 +89,14 @@ export const itemsFetchData = url => async (dispatch) => {
   const { data: { movies }, statusText } = await api.get(url);
   if (statusText !== 'OK') dispatch(itemsHasErrored(true));
   dispatch(itemsFetchDataSuccess(_.keyBy(movies, 'id')));
+  dispatch(itemsIsLoading(false));
+};
+
+export const randomItemsFetch = nr => async (dispatch) => {
+  dispatch(itemsIsLoading(true));
+  const { data: { movies }, statusText } = await api.get(`/random_movie?number=${nr}`);
+  if (statusText !== 'OK') dispatch(itemsHasErrored(true));
+  console.log(movies);
+  dispatch(randomItems(_.keyBy(movies, 'id')));
   dispatch(itemsIsLoading(false));
 };

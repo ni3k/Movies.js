@@ -10,7 +10,7 @@
     app.use('/', indexRouter); -> get this page <br>
     app.use('/all_movies', allMovies); -> get all movies, ?page=x <br>
     app.use('/movie', getMovieById); -> get movie by id /:id <br>
-    app.use('/random_movie', getRandomMovie); -> get random movie <br>
+    app.use('/random_movie', getRandomMovie); -> get random movie optionsl: ?number=3<br>
     app.use('/by_genre', getMoviesByGenre); -> get movies by genre ?genres=1,2,3 <br>
     app.use('/moviegenre', getGenresByMovie); -> get genres by movie /:id optional: ?string=true <br>
     app.use('/genreid', getGenreId); -> get genre id /:id  returns genre name <br>

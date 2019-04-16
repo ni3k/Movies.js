@@ -23,6 +23,15 @@ export function itemsIsLoading(state = false, action) {
   }
 }
 
+export function randomItems(state = {}, action) {
+  switch (action.type) {
+    case 'RANDOM_ITEMS_SUCCESS':
+      return { ...action.items };
+    default:
+      return state;
+  }
+}
+
 export function setedPage(state = 1, action) {
   console.log(action);
   switch (action.type) {

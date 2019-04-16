@@ -6,10 +6,15 @@ const Movie = require('../models/movie');
 
 /* GET random movie. */
 router.get('/', async (req, res) => {
-  const MoviesJson = await Movie.findOne({ order: Sequelize.literal('rand()'), raw: true });
+  let limit = 1;
+  
+  if (req.query.number !== undefined) {
+    limit = parseInt(req.query.number, 10);
+  }
+  const MoviesJson = await Movie.findAll({ limit, order: [Sequelize.fn('RAND')], raw: true });
 
   res.setHeader('Content-Type', 'application/json');
-  res.end(JSON.stringify({ movies: [MoviesJson] }));
+  res.end(JSON.stringify({ movies: MoviesJson }));
 });
 
 module.exports = router;
