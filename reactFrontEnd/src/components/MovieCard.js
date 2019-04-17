@@ -1,8 +1,25 @@
 import React from 'react';
 import {
-  Popup, Card, Rating, Image,
+  Popup, Card, Rating, Image, Label,
 } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
+
+const renderImage = (poster) => {
+  if (poster === null || poster === 'N/A') { return <Label content="Image not found!" icon="warning" />; }
+  return (
+    <Image
+      fluid
+      style={{
+        maxHeight: 250,
+        backgroundImage:
+        'https://react.semantic-ui.com/images/movies/totoro-horizontal.jpg',
+      }}
+      src={
+      poster
+    }
+    />
+  );
+};
 
 const MovieCard = ({
   title, description, rating, genres, poster, id,
@@ -11,23 +28,10 @@ const MovieCard = ({
     <Popup
       trigger={(
         <Card style={{ height: 350 }} inverted="true">
-          <Image
-            fluid
-            style={{
-              maxHeight: 250,
-              backgroundImage:
-                  'https://react.semantic-ui.com/images/movies/totoro-horizontal.jpg',
-            }}
-            src={
-                poster === 'N/A'
-                  ? 'https://react.semantic-ui.com/images/movies/totoro-horizontal.jpg'
-                  : poster
-              }
-          />
+          { renderImage(poster) }
           <Card.Content>
             <Card.Header>{title}</Card.Header>
             <Card.Description>
-              {description}
               {genres}
             </Card.Description>
           </Card.Content>
@@ -37,6 +41,8 @@ const MovieCard = ({
       <Popup.Header>User Rating</Popup.Header>
       <Popup.Content>
         <Rating icon="star" defaultRating={rating} maxRating={10} />
+        <br />
+        {description}
       </Popup.Content>
     </Popup>
   </Link>

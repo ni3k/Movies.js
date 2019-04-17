@@ -5,7 +5,7 @@ import { Segment } from 'semantic-ui-react';
 import configureStore from '../store/configureStore';
 
 import Menu from './Menu';
-import MovieGrid from './MovieGrid';
+import MoviePage from './MoviePage';
 import SingleMovie from './SingleMovie';
 
 const store = configureStore();
@@ -15,7 +15,7 @@ const App = (
     <Router>
       <Segment inverted style={{ minHeight: '100%' }}>
         <Menu />
-        <Route exact path="/:page" component={MovieGrid} />
+        <Route exact path="/:page" component={MoviePage} />
         <Route path="/movie/:id" component={SingleMovie} />
         <Route exact path="/" render={() => (<Redirect to="/1" />)} />
       </Segment>

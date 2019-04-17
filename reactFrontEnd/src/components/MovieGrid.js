@@ -1,37 +1,22 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import _ from 'lodash';
-import { withRouter } from 'react-router-dom';
 import {
-  Grid, Container, Header, Divider, Pagination, Segment,
+  Grid, Container, Header, Divider, Segment,
 } from 'semantic-ui-react';
-import { itemsFetchData, selectMovie, setPageRed } from '../actions/items';
+import _ from 'lodash';
+import { connect } from 'react-redux';
+import { setPageRed, selectMovie } from '../actions/items';
 import MovieCard from './MovieCard';
 
 class MovieGrid extends React.Component {
   componentDidMount() {
-    const { match: { params: { page } } } = this.props;
-    this.triggerElements(page);
-  }
 
-  onPageChange = (e, { activePage }) => {
-    const { history } = this.props;
-    history.push(`/${activePage}`);
-    this.triggerElements(activePage);
-  }
-
-  triggerElements(page) {
-    const { fetchData, setPage } = this.props;
-    setPage(page);
-    fetchData(`/all_movies?page=${page}`);
   }
 
   renderMovies() {
     const { items, handeClick } = this.props;
     const rendered = _.mapValues(items, (item) => {
       console.log(item);
-      let description = 'no description';
-      if (item.description !== null) { description = `${item.description.substring(0, Math.min(95, item.description.length))}...`; }
+      const description = item.description || 'no description';
 
       return (
         <Grid.Column
@@ -58,9 +43,8 @@ class MovieGrid extends React.Component {
   }
 
   render() {
-    // console.log(this.renderMovies())
     const {
-      hasErrored, isLoading, items, setedPage,
+      hasErrored, isLoading, items, children,
     } = this.props;
     if (items.length === 0) { return <div> Loading </div>; }
     console.log(items);
@@ -71,7 +55,6 @@ class MovieGrid extends React.Component {
     if (isLoading) {
       return <p>Loading…</p>;
     }
-
     return (
       <Segment inverted>
         <Container centered textAlign="center">
@@ -80,17 +63,10 @@ class MovieGrid extends React.Component {
           <Divider />
           <br />
           <Grid columns={4} relaxed centered>
-
             {this.renderMovies()}
           </Grid>
           <br />
-          <Pagination
-            defaultActivePage={setedPage}
-            totalPages={7}
-            centered
-            onPageChange={this.onPageChange}
-            inverted
-          />
+          { children }
         </Container>
       </Segment>
     );
@@ -108,9 +84,8 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  fetchData: url => dispatch(itemsFetchData(url)),
   handeClick: id => dispatch(selectMovie(id)),
   setPage: page => dispatch(setPageRed(page)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(MovieGrid));
+export default connect(mapStateToProps, mapDispatchToProps)(MovieGrid);
