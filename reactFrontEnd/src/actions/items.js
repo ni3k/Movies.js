@@ -48,12 +48,41 @@ export function setPageRed(page) {
   };
 }
 
+export function setFilter(filters) {
+  return {
+    type: 'FILTER_SET',
+    filters,
+  };
+}
+
 export function selectedItem(item) {
   return {
     type: 'ITEM_FETCH_DATA_SUCCESS',
     item,
   };
 }
+
+export function allGenres(genres) {
+  return {
+    type: 'GENRE_FETCH_SUCCESS',
+    genres,
+  };
+}
+
+export function fetchGenres() {
+  return async (dispatch) => {
+    dispatch(itemsIsLoading(true));
+    const { data: { genre }, statusText } = await api.get('/allgenres');
+    if (statusText !== 'OK') dispatch(itemsHasErrored(true));
+    const filtred = await Promise.all(
+      genre.map(g => ({ key: g.id, text: g.title, value: g.id })),
+    );
+    dispatch(allGenres(filtred));
+    console.log(genre);
+    dispatch(itemsIsLoading(false));
+  };
+}
+
 
 export function itemGenres(genres) {
   return {

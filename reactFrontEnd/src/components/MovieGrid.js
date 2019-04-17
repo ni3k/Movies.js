@@ -8,14 +8,10 @@ import { setPageRed, selectMovie } from '../actions/items';
 import MovieCard from './MovieCard';
 
 class MovieGrid extends React.Component {
-  componentDidMount() {
-
-  }
-
   renderMovies() {
     const { items, handeClick } = this.props;
     const rendered = _.mapValues(items, (item) => {
-      console.log(item);
+      // console.log(item);
       const description = item.description || 'no description';
 
       return (
@@ -44,10 +40,10 @@ class MovieGrid extends React.Component {
 
   render() {
     const {
-      hasErrored, isLoading, items, children,
+      hasErrored, isLoading, items, children, title,
     } = this.props;
     if (items.length === 0) { return <div> Loading </div>; }
-    console.log(items);
+    // console.log(items);
 
     if (hasErrored) {
       return <p>Sorry! There was an error loading the items</p>;
@@ -58,10 +54,10 @@ class MovieGrid extends React.Component {
     return (
       <Segment inverted>
         <Container centered textAlign="center">
-          <br />
-          <Header size="huge" inverted> Movies </Header>
+          <Header size="huge" inverted>
+            { title }
+          </Header>
           <Divider />
-          <br />
           <Grid columns={4} relaxed centered>
             {this.renderMovies()}
           </Grid>
@@ -73,15 +69,12 @@ class MovieGrid extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  console.log(state);
-  return {
-    items: state.items,
-    hasErrored: state.itemsHasErrored,
-    isLoading: state.itemsIsLoading,
-    setedPage: state.setedPage,
-  };
-};
+const mapStateToProps = state => ({
+  items: state.items,
+  hasErrored: state.itemsHasErrored,
+  isLoading: state.itemsIsLoading,
+  setedPage: state.setedPage,
+});
 
 const mapDispatchToProps = dispatch => ({
   handeClick: id => dispatch(selectMovie(id)),

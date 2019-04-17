@@ -1,9 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { Pagination } from 'semantic-ui-react';
-import { itemsFetchData, setPageRed } from '../actions/items';
+import { Pagination, Container, Header } from 'semantic-ui-react';
+import { itemsFetchData, setPageRed, fetchGenres } from '../actions/items';
 import MovieGrid from './MovieGrid';
+import FilterGenres from './FilterGenres';
 
 class MoviePage extends React.Component {
   componentDidMount() {
@@ -17,10 +18,18 @@ class MoviePage extends React.Component {
     this.triggerElements(activePage);
   }
 
-  triggerElements(page) {
-    const { fetchData, setPage } = this.props;
+  triggerElements = (page) => {
+    const {
+      fetchData, setPage, fetchFilter, filters,
+    } = this.props;
+    const filterString = filters.join(',');
     setPage(page);
-    fetchData(`/all_movies?page=${page}&limit=16`);
+    fetchFilter();
+    if (filters.length === 0) {
+      fetchData(`/all_movies?page=${page}&limit=16`);
+    } else {
+      fetchData(`/by_genre?genres=${filterString}&page=${page}&limit=16`);
+    }
   }
 
   render() {
@@ -29,7 +38,7 @@ class MoviePage extends React.Component {
       hasErrored, isLoading, items, setedPage,
     } = this.props;
     if (items.length === 0) { return <div> Loading </div>; }
-    console.log(items);
+    // console.log(items);
 
     if (hasErrored) {
       return <p>Sorry! There was an error loading the items</p>;
@@ -39,15 +48,19 @@ class MoviePage extends React.Component {
     }
 
     return (
-      <MovieGrid>
-        <Pagination
-          defaultActivePage={setedPage}
-          totalPages={7}
-          centered
-          onPageChange={this.onPageChange}
-          inverted
-        />
-      </MovieGrid>
+      <Container centered>
+        <FilterGenres onChangeHappened={this.triggerElements} />
+        <Header centered inverted textAlign="center">All Movies</Header>
+        <MovieGrid>
+          <Pagination
+            defaultActivePage={setedPage}
+            totalPages={50}
+            centered
+            onPageChange={this.onPageChange}
+            inverted
+          />
+        </MovieGrid>
+      </Container>
     );
   }
 }
@@ -59,12 +72,14 @@ const mapStateToProps = (state) => {
     hasErrored: state.itemsHasErrored,
     isLoading: state.itemsIsLoading,
     setedPage: state.setedPage,
+    filters: state.filters,
   };
 };
 
 const mapDispatchToProps = dispatch => ({
   fetchData: url => dispatch(itemsFetchData(url)),
   setPage: page => dispatch(setPageRed(page)),
+  fetchFilter: () => dispatch(fetchGenres()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(MoviePage));

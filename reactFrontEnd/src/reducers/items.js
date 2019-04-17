@@ -32,6 +32,25 @@ export function randomItems(state = {}, action) {
   }
 }
 
+export function genres(state = {}, action) {
+  console.log(action);
+  switch (action.type) {
+    case 'GENRE_FETCH_SUCCESS':
+      return [...action.genres];
+    default:
+      return state;
+  }
+}
+
+export function filters(state = [], action) {
+  switch (action.type) {
+    case 'FILTER_SET':
+      return [...action.filters];
+    default:
+      return state;
+  }
+}
+
 export function setedPage(state = 1, action) {
   console.log(action);
   switch (action.type) {

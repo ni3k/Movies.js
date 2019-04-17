@@ -16,6 +16,7 @@ const getRandomMovie = require('./routes/getRandomMovie');
 const getMoviesByGenre = require('./routes/getMoviesByGenre');
 const getGenresByMovie = require('./routes/getMovieGenres');
 const getGenreId = require('./routes/getGenre');
+const allGenres = require('./routes/allGenres');
 const registerUser = require('./routes/registerUser');
 const loginUser = require('./routes/loginUser');
 const findUser = require('./routes/findUser');
@@ -45,6 +46,7 @@ app.use('/genreid', getGenreId);
 app.use('/register', registerUser);
 app.use('/login', loginUser);
 app.use('/finduser', findUser);
+app.use('/allgenres', allGenres);
 // app.use('/routes/registerUser', )
 
 // catch 404 and forward to error handler

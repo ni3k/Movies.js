@@ -8,6 +8,8 @@ import {
   itemGenres,
   setedPage,
   randomItems,
+  genres,
+  filters,
 } from './items';
 
 export default combineReducers({
@@ -19,4 +21,6 @@ export default combineReducers({
   itemGenres,
   setedPage,
   randomItems,
+  genres,
+  filters,
 });
