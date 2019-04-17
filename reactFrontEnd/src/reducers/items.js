@@ -32,7 +32,16 @@ export function randomItems(state = {}, action) {
   }
 }
 
-export function genres(state = {}, action) {
+export function searchTerm(state = '', action) {
+  switch (action.type) {
+    case 'SETED_SEARCH_TERM':
+      return action.term;
+    default:
+      return state;
+  }
+}
+
+export function genres(state = [], action) {
   console.log(action);
   switch (action.type) {
     case 'GENRE_FETCH_SUCCESS':

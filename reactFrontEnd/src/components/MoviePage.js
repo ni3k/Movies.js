@@ -33,12 +33,10 @@ class MoviePage extends React.Component {
   }
 
   render() {
-    // console.log(this.renderMovies())
     const {
       hasErrored, isLoading, items, setedPage,
     } = this.props;
     if (items.length === 0) { return <div> Loading </div>; }
-    // console.log(items);
 
     if (hasErrored) {
       return <p>Sorry! There was an error loading the items</p>;
@@ -48,14 +46,13 @@ class MoviePage extends React.Component {
     }
 
     return (
-      <Container centered>
+      <Container>
         <FilterGenres onChangeHappened={this.triggerElements} />
-        <Header centered inverted textAlign="center">All Movies</Header>
+        <Header inverted textAlign="center">All Movies</Header>
         <MovieGrid>
           <Pagination
             defaultActivePage={setedPage}
             totalPages={50}
-            centered
             onPageChange={this.onPageChange}
             inverted
           />

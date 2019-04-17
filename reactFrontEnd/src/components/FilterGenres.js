@@ -10,6 +10,10 @@ class FilterGenres extends React.PureComponent {
     const {
       options, setFilter: triggerSetFilter, filters, onChangeHappened, page,
     } = this.props;
+    console.log(options);
+    if (options.length === 0) {
+      return (<div />);
+    }
     return (
       <Dropdown
         text="Filter By Genres"
@@ -19,10 +23,12 @@ class FilterGenres extends React.PureComponent {
         multiple
         button
         className="icon"
+        scrolling
         options={options}
         value={filters}
         onChange={async (e, { value }) => {
-          await triggerSetFilter(value); await onChangeHappened(page);
+          await triggerSetFilter(value);
+          await onChangeHappened(page);
         }}
       />
     );

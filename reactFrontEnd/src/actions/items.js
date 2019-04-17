@@ -34,6 +34,13 @@ export function itemFetchDataSuccess(item) {
   };
 }
 
+export function setSearchTerm(term) {
+  return {
+    type: 'SETED_SEARCH_TERM',
+    term,
+  };
+}
+
 export function selectMovie(id) {
   return {
     type: 'MOVIE_SELECTED_SUCCESFULL',

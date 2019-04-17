@@ -7,7 +7,7 @@ const Movie = require('../models/movie');
 /* GET random movie. */
 router.get('/', async (req, res) => {
   let limit = 1;
-  
+
   if (req.query.number !== undefined) {
     limit = parseInt(req.query.number, 10);
   }

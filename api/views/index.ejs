@@ -15,5 +15,12 @@
     app.use('/moviegenre', getGenresByMovie); -> get genres by movie /:id optional: ?string=true <br>
     app.use('/genreid', getGenreId); -> get genre id /:id  returns genre name <br>
     app.use('/allgenres', allGenres); -> returns all genres <br>
+    app.use('/getArchivedMovies') -> returns archived movies by user id /:id -> needs the jwt token in header <br>
+    app.use('/searchTitle', searchTitle); -> returns array of movies ?title=some title 
+
+    <h1> for loging</h1>
+    app.use('/register', registerUser); -> as indicated in passport
+    app.use('/login', loginUser);-> as indicated in passport
+    app.use('/finduser', findUser); -> jwt token in header (https://itnext.io/implementing-json-web-tokens-passport-js-in-a-javascript-application-with-react-b86b1f313436)
   </body>
 </html>

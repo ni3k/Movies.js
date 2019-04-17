@@ -53,7 +53,7 @@ class MovieGrid extends React.Component {
     }
     return (
       <Segment inverted>
-        <Container centered textAlign="center">
+        <Container textAlign="center">
           <Header size="huge" inverted>
             { title }
           </Header>
