@@ -32,7 +32,17 @@ export function randomItems(state = {}, action) {
   }
 }
 
+export function pagination(state = 1, action) {
+  switch (action.type) {
+    case 'PAGINATION_SET_SUCCESSFULL':
+      return action.pages;
+    default:
+      return state;
+  }
+}
+
 export function searchTerm(state = '', action) {
+  console.log(action);
   switch (action.type) {
     case 'SETED_SEARCH_TERM':
       return action.term;

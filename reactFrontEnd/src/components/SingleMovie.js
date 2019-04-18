@@ -7,6 +7,7 @@ import Carousel from 'semantic-ui-carousel-react';
 import _ from 'lodash';
 import { itemFetch, itemFetchGenres, randomItemsFetch } from '../actions/items';
 import MovieCard from './MovieCard';
+import Loading from './Loading';
 
 //  1ex5mfpsklibrz1rffy0irtubby51f
 class SingleMovie extends React.Component {
@@ -71,7 +72,7 @@ class SingleMovie extends React.Component {
       return <p>Sorry! There was an error loading the items</p>;
     }
     if (isLoading) {
-      return <p>Loading…</p>;
+      return <Loading />;
     }
 
     return (

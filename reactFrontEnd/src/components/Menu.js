@@ -3,13 +3,14 @@ import {
   Menu, Segment, Input,
 } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { setSearchTerm } from '../actions/items';
 
 class MenuHead extends Component {
   state = { activeItem: 'home' };
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name });
 
-  handleSearchClick = (e, { value }) => console.log(value);
 
   renderSearchButton = () => (
     <Link to="/search" className="ui button" role="search button">
@@ -45,7 +46,14 @@ class MenuHead extends Component {
             />
           </Link>
           <Menu.Menu position="right">
-            <Input placeholder="Search..." action={this.renderSearchButton()} onChange={(e, { val }) => { console.log(e); console.log(val); }} />
+            <Input
+              placeholder="Search..."
+              action={this.renderSearchButton()}
+              onChange={(e, { value }) => {
+                const { setSearchTerm: searchTerm } = this.props;
+                searchTerm(value);
+              }}
+            />
           </Menu.Menu>
           <Menu.Menu>
             <Menu.Item
@@ -60,4 +68,4 @@ class MenuHead extends Component {
   }
 }
 
-export default MenuHead;
+export default connect(null, { setSearchTerm })(MenuHead);

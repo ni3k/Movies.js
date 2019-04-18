@@ -34,19 +34,19 @@ router.get('/', async (req, res) => {
     res.end(JSON.stringify({ movies: [] }));
   }
   else {
-    const { count } = await Movie.findAndCountAll();
+    const genres = req.query.genres.split(',');
+    const movieIds = await getMoviesIdByGenres(genres);
+    const { count } = await Movie.findAndCountAll({ where: { id: movieIds } });
     const pages = Math.ceil(count / limit);
     if (page > pages) res.end(JSON.stringify({ movies: [] }));
     offset = limit * (page - 1);
 
-    const genres = req.query.genres.split(',');
-    const movieIds = await getMoviesIdByGenres(genres);
     const foundMovies = await Movie.findAll({
       where: { id: movieIds },
       limit,
       offset
     });
-    res.end(JSON.stringify({ movies: foundMovies }));
+    res.end(JSON.stringify({ movies: foundMovies, pages }));
   }
 });
 

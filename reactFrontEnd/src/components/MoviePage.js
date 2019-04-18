@@ -5,6 +5,7 @@ import { Pagination, Container, Header } from 'semantic-ui-react';
 import { itemsFetchData, setPageRed, fetchGenres } from '../actions/items';
 import MovieGrid from './MovieGrid';
 import FilterGenres from './FilterGenres';
+import Loading from './Loading';
 
 class MoviePage extends React.Component {
   componentDidMount() {
@@ -34,15 +35,15 @@ class MoviePage extends React.Component {
 
   render() {
     const {
-      hasErrored, isLoading, items, setedPage,
+      hasErrored, isLoading, items, setedPage, pagination,
     } = this.props;
-    if (items.length === 0) { return <div> Loading </div>; }
+    if (items.length === 0) { return <Loading />; }
 
     if (hasErrored) {
       return <p>Sorry! There was an error loading the items</p>;
     }
     if (isLoading) {
-      return <p>Loading…</p>;
+      return <Loading />;
     }
 
     return (
@@ -52,7 +53,7 @@ class MoviePage extends React.Component {
         <MovieGrid>
           <Pagination
             defaultActivePage={setedPage}
-            totalPages={50}
+            totalPages={pagination}
             onPageChange={this.onPageChange}
             inverted
           />
@@ -70,6 +71,7 @@ const mapStateToProps = (state) => {
     isLoading: state.itemsIsLoading,
     setedPage: state.setedPage,
     filters: state.filters,
+    pagination: state.pagination,
   };
 };
 

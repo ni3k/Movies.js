@@ -98,6 +98,13 @@ export function itemGenres(genres) {
   };
 }
 
+export function setPagination(pages) {
+  return {
+    type: 'PAGINATION_SET_SUCCESSFULL',
+    pages,
+  };
+}
+
 export function itemFetch(id) {
   return async (dispatch) => {
     dispatch(itemsIsLoading(true));
@@ -119,11 +126,26 @@ export function itemFetchGenres(id) {
   };
 }
 
+export function fetchSearchTerm(page) {
+  return async (dispatch, getState) => {
+    console.log(page);
+    const { searchTerm } = getState();
+    console.log(searchTerm);
+    dispatch(itemsIsLoading(true));
+    const { data: { movies, pages }, statusText } = await api.get(`/searchTitle?title=${searchTerm}&page=${page}`);
+    if (statusText !== 'OK') dispatch(itemsHasErrored(true));
+    dispatch(itemsFetchDataSuccess(_.keyBy(movies, 'id')));
+    dispatch(setPagination(pages));
+    dispatch(itemsIsLoading(false));
+  };
+}
+
 export const itemsFetchData = url => async (dispatch) => {
   dispatch(itemsIsLoading(true));
   console.log('here');
-  const { data: { movies }, statusText } = await api.get(url);
+  const { data: { movies, pages }, statusText } = await api.get(url);
   if (statusText !== 'OK') dispatch(itemsHasErrored(true));
+  dispatch(setPagination(pages));
   dispatch(itemsFetchDataSuccess(_.keyBy(movies, 'id')));
   dispatch(itemsIsLoading(false));
 };

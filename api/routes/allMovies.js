@@ -26,7 +26,7 @@ router.get('/', async (req, res) => {
   });
   console.log(MoviesJson);
 
-  res.end(JSON.stringify({ movies: MoviesJson }));
+  res.end(JSON.stringify({ movies: MoviesJson, pages }));
 });
 
 module.exports = router;
