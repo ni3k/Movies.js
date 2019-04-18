@@ -98,6 +98,13 @@ export function itemGenres(genres) {
   };
 }
 
+export function setAuth(auth) {
+  return {
+    type: 'USER_STATUS_SET',
+    auth,
+  };
+}
+
 export function setPagination(pages) {
   return {
     type: 'PAGINATION_SET_SUCCESSFULL',

@@ -2,6 +2,8 @@ import React from 'react';
 import {
   Container, Segment, Form, Grid, Header, Button, Message,
 } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
+
 import api from '../apiConfig/config';
 
 class Register extends React.Component {
@@ -32,6 +34,10 @@ class Register extends React.Component {
       return (
         <Message>
           { message }
+          <br />
+          <Link to="/login" as="a">
+            Login now
+          </Link>
         </Message>
       );
     }
@@ -58,7 +64,7 @@ class Register extends React.Component {
             <Grid textAlign="center" style={{ height: '100%' }} verticalAlign="middle">
               <Grid.Column style={{ maxWidth: 450 }}>
                 <Header inverted as="h2" color="teal" textAlign="center">
-                    Register to your account
+                    Sign up
                 </Header>
                 <Form size="large" onSubmit={this.handleSubmit}>
                   <Segment stacked>

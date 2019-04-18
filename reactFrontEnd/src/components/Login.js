@@ -2,7 +2,11 @@ import React from 'react';
 import {
   Container, Segment, Form, Grid, Header, Button, Message,
 } from 'semantic-ui-react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+
 import api from '../apiConfig/config';
+import { setAuth } from '../actions/items';
 
 class Login extends React.Component {
   state = {
@@ -13,6 +17,7 @@ class Login extends React.Component {
 
   handleSubmit = async (e) => {
     const { email, password } = this.state;
+    const { history, setAuth: login } = this.props;
     e.preventDefault();
     const { data: { message, token, auth } } = await api.post('/login', {
       email,
@@ -21,6 +26,8 @@ class Login extends React.Component {
     if (token !== undefined) {
       localStorage.setItem('token', JSON.stringify(token));
       localStorage.setItem('auth', auth);
+      login(true);
+      history.push('/');
     }
     this.setState({ message });
   }
@@ -79,6 +86,13 @@ class Login extends React.Component {
                   </Segment>
                   {this.renderMessage()}
                 </Form>
+                <Message info>
+                  Don&#39;t have an accout?
+                  <br />
+                  <Link to="/register" as="a">
+                  Register now
+                  </Link>
+                </Message>
               </Grid.Column>
             </Grid>
           </div>
@@ -88,4 +102,4 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+export default connect(null, { setAuth })(Login);

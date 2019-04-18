@@ -4,16 +4,26 @@ import {
 } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { setSearchTerm } from '../actions/items';
+import { setSearchTerm, setAuth } from '../actions/items';
 
 class MenuHead extends Component {
   state = { activeItem: 'home' };
 
+  componentDidMount() {
+    const { setAuth: logging } = this.props;
+    console.log(localStorage.getItem('auth'));
+    if (localStorage.getItem('auth') === 'true') {
+      logging(true);
+    }
+  }
+
   handleItemClick = (e, { name }) => this.setState({ activeItem: name });
 
   handleLogout = () => {
+    const { setAuth: logging } = this.props;
     localStorage.removeItem('token');
     localStorage.removeItem('auth');
+    logging(false);
   }
 
   renderSearchButton = () => (
@@ -23,9 +33,9 @@ class MenuHead extends Component {
   )
 
   renderLogin = () => {
-    console.log(localStorage.getItem('auth'));
+    const { auth } = this.props;
     const { activeItem } = this.state;
-    if (localStorage.getItem('auth') === 'true') {
+    if (auth === true) {
       return (
         <Menu.Menu>
           <Menu.Item
@@ -50,8 +60,10 @@ class MenuHead extends Component {
   }
 
   renderMyMovies = () => {
+    console.log(this.props);
     const { activeItem } = this.state;
-    if (localStorage.getItem('auth') === 'true') {
+    const { auth } = this.props;
+    if (auth === true) {
       return (
         <Link to="/movies">
           <Menu.Item
@@ -105,4 +117,8 @@ class MenuHead extends Component {
   }
 }
 
-export default connect(null, { setSearchTerm })(MenuHead);
+const mapStateToProps = state => ({
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps, { setSearchTerm, setAuth })(MenuHead);

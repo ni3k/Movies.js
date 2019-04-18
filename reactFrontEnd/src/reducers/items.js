@@ -41,6 +41,15 @@ export function pagination(state = 1, action) {
   }
 }
 
+export function auth(state = false, action) {
+  switch (action.type) {
+    case 'USER_STATUS_SET':
+      return action.auth;
+    default:
+      return state;
+  }
+}
+
 export function searchTerm(state = '', action) {
   console.log(action);
   switch (action.type) {

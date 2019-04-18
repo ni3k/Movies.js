@@ -12,6 +12,7 @@ import {
   filters,
   searchTerm,
   pagination,
+  auth,
 } from './items';
 
 export default combineReducers({
@@ -27,4 +28,5 @@ export default combineReducers({
   filters,
   searchTerm,
   pagination,
+  auth,
 });
