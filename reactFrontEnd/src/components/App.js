@@ -10,6 +10,8 @@ import Menu from './Menu';
 import MoviePage from './MoviePage';
 import SingleMovie from './SingleMovie';
 import SearchPage from './SearchPage';
+import Login from './Login';
+import Register from './Signup';
 
 const store = configureStore();
 
@@ -19,6 +21,8 @@ const App = (
       <Segment inverted style={{ minHeight: '100%' }}>
         <Menu />
         <Switch>
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/register" component={Register} />
           <Route exact path="/search/:page" component={SearchPage} />
           <Route exact path="/search" render={() => (<Redirect to="search/1" />)} />
           <Route exact path="/:page" component={MoviePage} />

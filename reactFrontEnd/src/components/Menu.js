@@ -11,12 +11,61 @@ class MenuHead extends Component {
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name });
 
+  handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('auth');
+  }
 
   renderSearchButton = () => (
     <Link to="/search" className="ui button" role="search button">
         Search
     </Link>
   )
+
+  renderLogin = () => {
+    console.log(localStorage.getItem('auth'));
+    const { activeItem } = this.state;
+    if (localStorage.getItem('auth') === 'true') {
+      return (
+        <Menu.Menu>
+          <Menu.Item
+            name="logout"
+            active={activeItem === 'logout'}
+            onClick={(e, obj) => { this.handleItemClick(e, obj); this.handleLogout(); }}
+          />
+        </Menu.Menu>
+      );
+    }
+    return (
+      <Menu.Menu>
+        <Link to="/login">
+          <Menu.Item
+            name="login"
+            active={activeItem === 'login'}
+            onClick={this.handleItemClick}
+          />
+        </Link>
+      </Menu.Menu>
+    );
+  }
+
+  renderMyMovies = () => {
+    const { activeItem } = this.state;
+    if (localStorage.getItem('auth') === 'true') {
+      return (
+        <Link to="/movies">
+          <Menu.Item
+            name="movies"
+            active={activeItem === 'movies'}
+            onClick={this.handleItemClick}
+          >
+              My movies
+          </Menu.Item>
+        </Link>
+      );
+    }
+    return (<></>);
+  }
 
   render() {
     const { activeItem } = this.state;
@@ -31,13 +80,7 @@ class MenuHead extends Component {
               onClick={this.handleItemClick}
             />
           </Link>
-          <Link to="/movies">
-            <Menu.Item
-              name="movies"
-              active={activeItem === 'movies'}
-              onClick={this.handleItemClick}
-            />
-          </Link>
+          {this.renderMyMovies()}
           <Link to="/account">
             <Menu.Item
               name="Account"
@@ -55,13 +98,7 @@ class MenuHead extends Component {
               }}
             />
           </Menu.Menu>
-          <Menu.Menu>
-            <Menu.Item
-              name="logout"
-              active={activeItem === 'logout'}
-              onClick={this.handleItemClick}
-            />
-          </Menu.Menu>
+          {this.renderLogin()}
         </Menu>
       </Segment>
     );

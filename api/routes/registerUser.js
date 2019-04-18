@@ -8,11 +8,10 @@ router.post('/', async (req, res, next) => {
   console.log(req.body);
   passport.authenticate('register', (err, user, info) => {
     if (err) {
-      console.log(err);
+      res.status(200).send({ message: err });
     }
     if (info !== undefined) {
-      console.log(info.message);
-      res.send(info.message);
+      res.status(200).send({ message: info.message });
     }
     else {
       req.logIn(user, () => {
