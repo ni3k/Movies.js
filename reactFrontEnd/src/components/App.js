@@ -12,6 +12,7 @@ import SingleMovie from './SingleMovie';
 import SearchPage from './SearchPage';
 import Login from './Login';
 import Register from './Signup';
+import MyMovies from './MyMovies';
 
 const store = configureStore();
 
@@ -21,6 +22,7 @@ const App = (
       <Segment inverted style={{ minHeight: '100%' }}>
         <Menu />
         <Switch>
+          <Route exact path="/movies" component={MyMovies} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/search/:page" component={SearchPage} />
