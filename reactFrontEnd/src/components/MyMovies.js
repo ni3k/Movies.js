@@ -1,13 +1,18 @@
 import React from 'react';
+import PageMovies from './PageMovies';
 
-class MyMovies extends React.Component {
-  componentDidMount() {
-
-  }
+class MoviePage extends React.Component {
+  componentDidMount() {}
 
   render() {
-    return <div> You have 0 movies so far </div>;
+    return (
+      <PageMovies
+        commonLink="getwatchlater"
+        baseUrl="/mymovies"
+      />
+    );
   }
 }
 
-export default MyMovies;
+
+export default MoviePage;

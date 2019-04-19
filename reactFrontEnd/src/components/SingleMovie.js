@@ -78,13 +78,14 @@ class SingleMovie extends React.Component {
   }
 
 
-  renderButton() {
+  renderButtonSaveLater() {
     const { auth } = this.props;
     if (auth) {
       return (
         <Button
           animated="arrow right"
           floated="right"
+          size="mini"
           color="blue"
           style={{ marginTop: 5 }}
           onClick={this.handleSave}
@@ -93,7 +94,7 @@ class SingleMovie extends React.Component {
             Watch Later
           </Button.Content>
           <Button.Content hidden>
-            <Icon name="save outline" size="large" />
+            <Icon name="save outline" />
           </Button.Content>
         </Button>
       );
@@ -132,7 +133,9 @@ class SingleMovie extends React.Component {
                 />
                 {this.renderLabels()}
                 <Rating icon="heart" disabled defaultRating={item.rating} maxRating={10} />
-                {this.renderButton()}
+                {this.renderButtonSaveLater()}
+                <br />
+                <br />
               </Message>
             </Grid.Column>
             <Grid.Column width={4} only="computer">

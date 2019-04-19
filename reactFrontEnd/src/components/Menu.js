@@ -65,7 +65,7 @@ class MenuHead extends Component {
     const { auth } = this.props;
     if (auth === true) {
       return (
-        <Link to="/movies">
+        <Link to="/mymovies">
           <Menu.Item
             name="movies"
             active={activeItem === 'movies'}

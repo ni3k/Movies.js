@@ -22,7 +22,8 @@ const App = (
       <Segment inverted style={{ minHeight: '100%' }}>
         <Menu />
         <Switch>
-          <Route exact path="/movies" component={MyMovies} />
+          <Route exact path="/mymovies/:page" component={MyMovies} />
+          <Route exact path="/mymovies" render={() => (<Redirect to="mymovies/1" />)} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/search/:page" component={SearchPage} />

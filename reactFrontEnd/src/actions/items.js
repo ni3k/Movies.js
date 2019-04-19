@@ -163,7 +163,12 @@ export function fetchSearchTerm(page) {
 export const itemsFetchData = url => async (dispatch) => {
   dispatch(itemsIsLoading(true));
   console.log('here');
-  const { data: { movies, pages }, statusText } = await api.get(url);
+  const token = localStorage.getItem('token');
+  const { data: { movies, pages }, statusText } = await api.get(url, {
+    headers: {
+      Authorization: `JWT ${token}`,
+    },
+  });
   if (statusText !== 'OK') dispatch(itemsHasErrored(true));
   dispatch(setPagination(pages));
   dispatch(itemsFetchDataSuccess(_.keyBy(movies, 'id')));

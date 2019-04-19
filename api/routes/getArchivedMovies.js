@@ -7,6 +7,14 @@ const archivedMovies = require('../models/archivedmovies');
 
 /* GET archived movies later. */
 router.get('/', async (req, res) => {
+  let page = 1;
+  let limit = 10;
+  let offset = 0;
+
+  if (typeof req.query.page !== 'undefined') page = parseInt(req.query.page, 10);
+  if (typeof req.query.limit !== 'undefined') limit = parseInt(req.query.limit, 10);
+
+
   const token = req.get('Authorization');
   if (!token) {
     res.status(200).send({
@@ -27,14 +35,26 @@ router.get('/', async (req, res) => {
 
   const moviesIds = await archivedMovies.findAll({ where: { userId: id }, raw: true, attributes: ['movieId'] });
   const moviesIdsFiltered = moviesIds.map(obj => obj.movieId);
-  const foundMovies = await Movies.findAll({ where: { id: moviesIdsFiltered } }, { raw: true });
+
+  const count = moviesIds.length;
+  const pages = Math.ceil(count / limit);
+  if (page > pages) res.end(JSON.stringify({ movies: [], pages: 1 }));
+  offset = limit * (page - 1);
+  const foundMovies = await Movies.findAll({
+    where: { id: moviesIdsFiltered },
+    raw: true,
+    limit,
+    offset,
+    subQuery: false
+  });
   console.log(foundMovies);
 
   // const MoviesJson = await Movie.findAll({ limit, order: [Sequelize.fn('RAND')], raw: true });
 
   res.setHeader('Content-Type', 'application/json');
   res.end(JSON.stringify({
-    movies: foundMovies
+    movies: foundMovies,
+    pages
   }));
 });
 
