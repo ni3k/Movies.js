@@ -16,7 +16,9 @@
     app.use('/genreid', getGenreId); -> get genre id /:id  returns genre name <br>
     app.use('/allgenres', allGenres); -> returns all genres <br>
     app.use('/getArchivedMovies') -> returns archived movies by user id /:id -> needs the jwt token in header <br>
-    app.use('/searchTitle', searchTitle); -> returns array of movies ?title=some title 
+    app.use('/searchTitle', searchTitle); -> returns array of movies ?title=some title <br>
+    app.use('/watchlater', watchLater); -> insert into database relation /:userId/:movieId (needs jwt token in header authorization)<br>
+    app.use('/getwatchlater', getwatchlater); -> returns array of movie items /:userId (needs jwt token in header authorization) <br>
 
     <h1> for loging</h1>
     app.use('/register', registerUser); -> as indicated in passport <br>

@@ -6,9 +6,9 @@ const api = require('../apiConfig/config');
 const archivedMovies = require('../models/archivedmovies');
 
 /* GET watch later. */
-router.get('/:userId/:movieId', async (req, res) => {
+router.get('/:movieId', async (req, res) => {
   res.setHeader('Content-Type', 'application/json');
-  const { userId, movieId } = req.params;
+  const { movieId } = req.params;
   const token = req.get('Authorization');
   if (!token) {
     res.status(200).send({
@@ -24,10 +24,10 @@ router.get('/:userId/:movieId', async (req, res) => {
     headers: { Authorization: token }
   });
   console.log(auth);
-  console.log(id, userId);
-  if (parseInt(userId, 10) === id) {
+  console.log(id);
+  if (auth) {
     //  check the db and insert
-    await archivedMovies.findOrCreate({ where: { userId, movieId } });
+    await archivedMovies.findOrCreate({ where: { userId: id, movieId } });
   }
   // const MoviesJson = await Movie.findAll({ limit, order: [Sequelize.fn('RAND')], raw: true });
   res.end(JSON.stringify({ movies: [] }));

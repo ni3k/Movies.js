@@ -76,6 +76,19 @@ export function allGenres(genres) {
   };
 }
 
+export function saveItem(movieId) {
+  return async (dispatch) => {
+    dispatch(itemsIsLoading(true));
+    const token = localStorage.getItem('token');
+    await api.get(`/watchlater/${movieId}`, {
+      headers: {
+        Authorization: `JWT ${token}`,
+      },
+    });
+    dispatch(itemsIsLoading(false));
+  };
+}
+
 export function fetchGenres() {
   return async (dispatch) => {
     dispatch(itemsIsLoading(true));

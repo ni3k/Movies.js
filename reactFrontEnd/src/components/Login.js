@@ -24,7 +24,7 @@ class Login extends React.Component {
       password,
     });
     if (token !== undefined) {
-      localStorage.setItem('token', JSON.stringify(token));
+      localStorage.setItem('token', token);
       localStorage.setItem('auth', auth);
       login(true);
       history.push('/');

@@ -6,8 +6,7 @@ const api = require('../apiConfig/config');
 const archivedMovies = require('../models/archivedmovies');
 
 /* GET archived movies later. */
-router.get('/:userId', async (req, res) => {
-  const { userId } = req.params;
+router.get('/', async (req, res) => {
   const token = req.get('Authorization');
   if (!token) {
     res.status(200).send({
@@ -18,7 +17,7 @@ router.get('/:userId', async (req, res) => {
     headers: { Authorization: token }
   });
   console.log(auth);
-  if (auth !== true || id !== parseInt(userId, 10)) {
+  if (auth !== true) {
     res.status(200).send({
       movies: []
     });
@@ -26,7 +25,7 @@ router.get('/:userId', async (req, res) => {
 
   //  check the db and insert
 
-  const moviesIds = await archivedMovies.findAll({ where: { userId }, raw: true, attributes: ['movieId'] });
+  const moviesIds = await archivedMovies.findAll({ where: { userId: id }, raw: true, attributes: ['movieId'] });
   const moviesIdsFiltered = moviesIds.map(obj => obj.movieId);
   const foundMovies = await Movies.findAll({ where: { id: moviesIdsFiltered } }, { raw: true });
   console.log(foundMovies);

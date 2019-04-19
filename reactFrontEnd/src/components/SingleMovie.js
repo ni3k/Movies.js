@@ -1,11 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {
-  Embed, Container, Message, Label, Rating, Grid, Header, Icon,
+  Embed, Container, Message, Label, Rating, Grid, Header, Icon, Button,
 } from 'semantic-ui-react';
 import Carousel from 'semantic-ui-carousel-react';
 import _ from 'lodash';
-import { itemFetch, itemFetchGenres, randomItemsFetch } from '../actions/items';
+import {
+  itemFetch, itemFetchGenres, randomItemsFetch, saveItem,
+} from '../actions/items';
 import MovieCard from './MovieCard';
 import Loading from './Loading';
 
@@ -22,6 +24,16 @@ class SingleMovie extends React.Component {
     if (currentId !== prevId) {
       this.triggerElements(currentId);
     }
+  }
+
+  handleSave = () => {
+    const {
+      handleSaveItem,
+      currentItem: {
+        id,
+      },
+    } = this.props;
+    handleSaveItem(id);
   }
 
   triggerElements(id) {
@@ -65,6 +77,30 @@ class SingleMovie extends React.Component {
     ));
   }
 
+
+  renderButton() {
+    const { auth } = this.props;
+    if (auth) {
+      return (
+        <Button
+          animated="arrow right"
+          floated="right"
+          color="blue"
+          style={{ marginTop: 5 }}
+          onClick={this.handleSave}
+        >
+          <Button.Content visible>
+            Watch Later
+          </Button.Content>
+          <Button.Content hidden>
+            <Icon name="save outline" size="large" />
+          </Button.Content>
+        </Button>
+      );
+    }
+    return (<> </>);
+  }
+
   render() {
     const { hasErrored, isLoading, item } = this.props;
     console.log(item.rating);
@@ -96,6 +132,7 @@ class SingleMovie extends React.Component {
                 />
                 {this.renderLabels()}
                 <Rating icon="heart" disabled defaultRating={item.rating} maxRating={10} />
+                {this.renderButton()}
               </Message>
             </Grid.Column>
             <Grid.Column width={4} only="computer">
@@ -129,6 +166,8 @@ const mapStateToProps = (state) => {
     isLoading: state.itemsIsLoading,
     genres: state.itemGenres,
     randomItems: state.randomItems,
+    auth: state.auth,
+    currentItem: state.selectedItem,
   };
 };
 
@@ -136,6 +175,7 @@ const mapDispatchToProps = dispatch => ({
   fetchData: id => dispatch(itemFetch(id)),
   fetchGenres: id => dispatch(itemFetchGenres(id)),
   fetchRandomItems: nr => dispatch(randomItemsFetch(nr)),
+  handleSaveItem: id => dispatch(saveItem(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SingleMovie);
