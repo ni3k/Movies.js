@@ -23,6 +23,9 @@ const registerUser = require('./routes/registerUser');
 const loginUser = require('./routes/loginUser');
 const findUser = require('./routes/findUser');
 
+const watchLater = require('./routes/watchLater');
+const getwatchlater = require('./routes/getArchivedMovies');
+
 app.use(cors());
 require('./config/passport');
 // view engine setup
@@ -50,6 +53,8 @@ app.use('/login', loginUser);
 app.use('/finduser', findUser);
 app.use('/allgenres', allGenres);
 app.use('/searchTitle', searchTitle);
+app.use('/watchlater', watchLater);
+app.use('/getwatchlater', getwatchlater);
 // app.use('/routes/registerUser', )
 
 // catch 404 and forward to error handler

@@ -1,12 +1,13 @@
+const Sequelize = require('sequelize');
+const db = require('../config/database');
 
 
-module.exports = (sequelize, DataTypes) => {
-  const archivedMovies = sequelize.define('archivedMovies', {
-    movieId: DataTypes.INTEGER,
-    userId: DataTypes.INTEGER
-  }, {});
-  archivedMovies.associate = function (models) {
-    // associations can be defined here
-  };
-  return archivedMovies;
+const archivedMovies = db.define('archivedMovies', {
+  movieId: Sequelize.INTEGER,
+  userId: Sequelize.INTEGER
+}, { freezeTableName: true });
+archivedMovies.associate = function (models) {
+  // associations can be defined here
 };
+
+module.exports = archivedMovies;

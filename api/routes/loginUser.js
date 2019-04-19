@@ -9,6 +9,7 @@ const router = express.Router();
 
 router.post('/', (req, res, next) => {
   passport.authenticate('login', (err, user, info) => {
+    console.log(user);
     if (err) {
       res.status(200).send({
         auth: false,
