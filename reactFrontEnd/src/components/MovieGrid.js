@@ -17,8 +17,12 @@ class MovieGrid extends React.Component {
       <Transition
         items={allItems}
         keys={item => item.id}
-        from={{ transform: 'translate3d(0,-40px,0)', marginTop: '-50px', marginLeft: '-50px' }}
-        enter={{ transform: 'translate3d(0,0px,0)', marginTop: '0px', marginLeft: '0px' }}
+        from={{
+          transform: 'translate3d(0,-40px,0)', marginTop: '-50px', marginLeft: '-50px', opacity: 0,
+        }}
+        enter={{
+          transform: 'translate3d(0,0px,0)', marginTop: '0px', marginLeft: '0px', opacity: 1,
+        }}
         leave={{ transform: 'translate3d(0,-40px,0)' }}
         config={{ duration: 1000 }}
       >

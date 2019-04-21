@@ -13,15 +13,17 @@ import SearchPage from './SearchPage';
 import Login from './Login';
 import Register from './Signup';
 import MyMovies from './MyMovies';
+import Account from './Account';
 
 const store = configureStore();
 
 const App = (
   <Provider store={store}>
     <Router>
-      <Segment inverted style={{ minHeight: '100%' }}>
+      <Segment inverted style={{ padding: 0 }}>
         <Menu />
         <Switch>
+          <Route exact path="/account" component={Account} />
           <Route exact path="/mymovies/:page" component={MyMovies} />
           <Route exact path="/mymovies" render={() => (<Redirect to="mymovies/1" />)} />
           <Route exact path="/login" component={Login} />

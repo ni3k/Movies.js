@@ -6,10 +6,12 @@ class MoviePage extends React.Component {
 
   render() {
     return (
-      <PageMovies
-        commonLink="getwatchlater"
-        baseUrl="/mymovies"
-      />
+      <>
+        <PageMovies
+          commonLink="getwatchlater"
+          baseUrl="/mymovies"
+        />
+      </>
     );
   }
 }
