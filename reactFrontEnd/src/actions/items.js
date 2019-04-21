@@ -91,7 +91,7 @@ export function saveItem(movieId) {
 
 export function fetchGenres() {
   return async (dispatch) => {
-    dispatch(itemsIsLoading(true));
+    // dispatch(itemsIsLoading(true));
     const { data: { genre }, statusText } = await api.get('/allgenres');
     if (statusText !== 'OK') dispatch(itemsHasErrored(true));
     const filtred = await Promise.all(
@@ -99,7 +99,7 @@ export function fetchGenres() {
     );
     dispatch(allGenres(filtred));
     console.log(genre);
-    dispatch(itemsIsLoading(false));
+    // dispatch(itemsIsLoading(false));
   };
 }
 
