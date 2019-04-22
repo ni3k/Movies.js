@@ -76,6 +76,7 @@ export function allGenres(genres) {
   };
 }
 
+
 export function saveItem(movieId) {
   return async (dispatch) => {
     dispatch(itemsIsLoading(true));
@@ -103,6 +104,11 @@ export function fetchGenres() {
   };
 }
 
+export function clearItem() {
+  return {
+    type: 'CLEAR_ITEM',
+  };
+}
 
 export function itemGenres(genres) {
   return {
@@ -176,10 +182,10 @@ export const itemsFetchData = url => async (dispatch) => {
 };
 
 export const randomItemsFetch = nr => async (dispatch) => {
-  dispatch(itemsIsLoading(true));
+  // dispatch(itemsIsLoading(true));
   const { data: { movies }, statusText } = await api.get(`/random_movie?number=${nr}`);
   if (statusText !== 'OK') dispatch(itemsHasErrored(true));
   console.log(movies);
   dispatch(randomItems(_.keyBy(movies, 'id')));
-  dispatch(itemsIsLoading(false));
+  // dispatch(itemsIsLoading(false));
 };

@@ -65,8 +65,7 @@ class PageMovies extends React.Component {
     const { filterLink } = this.props;
     if (filterLink) {
       return (
-        <FilterGenres onChangeHappened={
-          this.triggerElements
+        <FilterGenres onChangeHappened={() => this.onPageChange(null, { activePage: 1 })
         }
         />
       );

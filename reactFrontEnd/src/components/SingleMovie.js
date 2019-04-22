@@ -6,7 +6,7 @@ import {
 import Carousel from 'semantic-ui-carousel-react';
 import _ from 'lodash';
 import {
-  itemFetch, itemFetchGenres, randomItemsFetch, saveItem,
+  itemFetch, itemFetchGenres, randomItemsFetch, saveItem, clearItem,
 } from '../actions/items';
 import MovieCard from './MovieCard';
 import Loading from './Loading';
@@ -14,14 +14,16 @@ import Loading from './Loading';
 //  1ex5mfpsklibrz1rffy0irtubby51f
 class SingleMovie extends React.Component {
   componentDidMount() {
-    const { match: { params: { id } } } = this.props;
+    const { match: { params: { id } }, clearingPrev } = this.props;
+    clearingPrev();
     this.triggerElements(id);
   }
 
   componentDidUpdate(prevProps) {
-    const { match: { params: { id: currentId } } } = this.props;
+    const { match: { params: { id: currentId } }, clearingPrev } = this.props;
     const { match: { params: { id: prevId } } } = prevProps;
     if (currentId !== prevId) {
+      clearingPrev();
       this.triggerElements(currentId);
     }
   }
@@ -36,11 +38,11 @@ class SingleMovie extends React.Component {
     handleSaveItem(id);
   }
 
-  triggerElements(id) {
+  async triggerElements(id) {
     const { fetchData, fetchGenres, fetchRandomItems } = this.props;
-    fetchData(id);
     fetchGenres(id);
     fetchRandomItems(5);
+    await fetchData(id);
   }
 
   renderCarousel() {
@@ -108,7 +110,7 @@ class SingleMovie extends React.Component {
     if (hasErrored) {
       return <p>Sorry! There was an error loading the items</p>;
     }
-    if (isLoading) {
+    if (isLoading || item.rating === undefined) {
       return <Loading />;
     }
 
@@ -179,6 +181,7 @@ const mapDispatchToProps = dispatch => ({
   fetchGenres: id => dispatch(itemFetchGenres(id)),
   fetchRandomItems: nr => dispatch(randomItemsFetch(nr)),
   handleSaveItem: id => dispatch(saveItem(id)),
+  clearingPrev: () => dispatch(clearItem()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SingleMovie);

@@ -1,18 +1,21 @@
 const express = require('express');
+const jwt = require('jsonwebtoken');
+const passport = require('passport');
+const User = require('../models/users');
+const jwtSecret = require('../config/jwtConfig');
 
 const router = express.Router();
-const Sequelize = require('sequelize');
 const api = require('../apiConfig/config');
-const archivedMovies = require('../models/archivedmovies');
 
-/* GET watch later. */
-router.get('/:movieId', async (req, res) => {
+
+/* patch user info. */
+router.patch('/', async (req, res) => {
+  const { firstName, lastName, email } = req.body;
   res.setHeader('Content-Type', 'application/json');
-  const { movieId } = req.params;
   const token = req.get('Authorization');
   if (!token) {
     res.status(200).send({
-      movies: []
+      succes: 0
     });
   }
   const {
@@ -27,16 +30,13 @@ router.get('/:movieId', async (req, res) => {
   console.log(id);
   if (auth) {
     //  check the db and insert
-    const found = archivedMovies.findOne({ where: { userId: id, movieId } });
-    if (found === null) {
-      await archivedMovies.create({ where: { userId: id, movieId } });
-    }
-    else {
-      await archivedMovies.destroy({ where: { userId: id, movieId } });
-    }
+    User.update({ firstName, email, lastName }, { where: { id } });
+    const Token = jwt.sign({ id: email }, jwtSecret.secret);
+    res.end(JSON.stringify({ token: Token }));
+    console.log(req.body);
   }
   // const MoviesJson = await Movie.findAll({ limit, order: [Sequelize.fn('RAND')], raw: true });
-  res.end(JSON.stringify({ movies: [] }));
+  res.end(JSON.stringify({ succes: 0 }));
 });
 
 module.exports = router;

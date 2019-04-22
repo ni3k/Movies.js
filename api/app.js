@@ -22,6 +22,7 @@ const searchTitle = require('./routes/searchTitle');
 const registerUser = require('./routes/registerUser');
 const loginUser = require('./routes/loginUser');
 const findUser = require('./routes/findUser');
+const updateUser = require('./routes/updateInfo');
 
 const watchLater = require('./routes/watchLater');
 const getwatchlater = require('./routes/getArchivedMovies');
@@ -55,6 +56,7 @@ app.use('/allgenres', allGenres);
 app.use('/searchTitle', searchTitle);
 app.use('/watchlater', watchLater);
 app.use('/getwatchlater', getwatchlater);
+app.use('/updateUser', updateUser);
 // app.use('/routes/registerUser', )
 
 // catch 404 and forward to error handler

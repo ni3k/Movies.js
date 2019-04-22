@@ -4,6 +4,7 @@ const INITIAL_STATE = {
   title: '',
   year: '',
   description: '',
+  rating: undefined,
 };
 
 export function itemsHasErrored(state = false, action) {
@@ -89,6 +90,7 @@ export function setedPage(state = 1, action) {
   }
 }
 
+
 export function items(state = {}, action) {
   switch (action.type) {
     case 'ITEMS_FETCH_DATA_SUCCESS':
@@ -102,6 +104,8 @@ export function selectedItem(state = INITIAL_STATE, action) {
   switch (action.type) {
     case 'ITEM_FETCH_DATA_SUCCESS':
       return { ...state, ...action.item };
+    case 'CLEAR_ITEM':
+      return { ...INITIAL_STATE };
     default:
       return state;
   }

@@ -8,11 +8,12 @@ import api from '../apiConfig/config';
 
 class Register extends React.Component {
   state = {
-    password: '', email: '', firstName: '', lastName: '', message: '',
+    email: '', firstName: '', lastName: '', message: '', internToken: '',
   }
 
   async componentDidMount() {
     const token = localStorage.getItem('token');
+    this.setState({ internToken: token });
     const { data: { email, firstName, lastName } } = await api.get('/finduser', {
       headers: {
         Authorization: `JWT ${token}`,
@@ -25,17 +26,21 @@ class Register extends React.Component {
 
   handleSubmit = async (e) => {
     const {
-      password, email, firstName, lastName,
+      email, firstName, lastName, internToken,
     } = this.state;
     e.preventDefault();
-    const { data: { message } } = await api.post('/edit', {
+    const { data: { token } } = await api.patch('/updateUser', {
       firstName,
       lastName,
-      password,
       email,
+    }, {
+      headers: {
+        Authorization: `JWT ${internToken}`,
+      },
     });
-    this.setState({ message });
-    console.log(this.state);
+    if (token !== undefined) {
+      localStorage.setItem('token', token);
+    }
   }
 
   renderMessage() {
@@ -56,7 +61,7 @@ class Register extends React.Component {
 
   render() {
     const {
-      password, email, firstName, lastName,
+      email, firstName, lastName,
     } = this.state;
     return (
       <Segment inverted>
