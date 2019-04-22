@@ -111,6 +111,15 @@ export function selectedItem(state = INITIAL_STATE, action) {
   }
 }
 
+export function seenButton(state = false, action) {
+  switch (action.type) {
+    case 'SET_TOOGLE_BUTTON':
+      return action.seen;
+    default:
+      return state;
+  }
+}
+
 export function itemGenres(state = [], action) {
   switch (action.type) {
     case 'ITEM_GENRES_FETCH_SUCCESS':

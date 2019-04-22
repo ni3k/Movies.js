@@ -131,6 +131,25 @@ export function setPagination(pages) {
   };
 }
 
+export function toogleButton(seen) {
+  return {
+    type: 'SET_TOOGLE_BUTTON',
+    seen,
+  };
+}
+
+export function checkElibility(id) {
+  return async (dispatch) => {
+    const token = localStorage.getItem('token');
+    const { data: { movie } } = await api.get(`/checkMovie/${id}`, {
+      headers: {
+        Authorization: `JWT ${token}`,
+      },
+    });
+    dispatch(toogleButton(movie));
+  };
+}
+
 export function itemFetch(id) {
   return async (dispatch) => {
     dispatch(itemsIsLoading(true));

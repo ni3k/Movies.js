@@ -13,6 +13,7 @@ import {
   searchTerm,
   pagination,
   auth,
+  seenButton,
 } from './items';
 
 export default combineReducers({
@@ -29,4 +30,5 @@ export default combineReducers({
   searchTerm,
   pagination,
   auth,
+  seenButton,
 });

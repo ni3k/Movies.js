@@ -26,6 +26,7 @@ const updateUser = require('./routes/updateInfo');
 
 const watchLater = require('./routes/watchLater');
 const getwatchlater = require('./routes/getArchivedMovies');
+const checkEligibliness = require('./routes/checkEligiblinessOfMovie');
 
 app.use(cors());
 require('./config/passport');
@@ -57,6 +58,7 @@ app.use('/searchTitle', searchTitle);
 app.use('/watchlater', watchLater);
 app.use('/getwatchlater', getwatchlater);
 app.use('/updateUser', updateUser);
+app.use('/checkMovie', checkEligibliness);
 // app.use('/routes/registerUser', )
 
 // catch 404 and forward to error handler

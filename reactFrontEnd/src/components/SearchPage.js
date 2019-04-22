@@ -12,11 +12,14 @@ class SearchPage extends React.Component {
 
   componentDidUpdate(prevProps) {
     console.log(prevProps);
-    const { match: { params: { page } } } = this.props;
     const { searchTerm: prevSearchTerm } = prevProps;
-    const { searchTerm, fetchSearchTerm: searchNow } = this.props;
+    const {
+      searchTerm, fetchSearchTerm: searchNow, history, setPageRed: setPage 
+    } = this.props;
     if (searchTerm !== prevSearchTerm) {
-      searchNow(page);
+      searchNow(1);
+      setPage(1);
+      history.push('/search/1');
     }
   }
 

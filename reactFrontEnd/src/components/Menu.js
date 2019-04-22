@@ -59,21 +59,30 @@ class MenuHead extends Component {
     );
   }
 
-  renderMyMovies = () => {
+  renderLoggedInLinks = () => {
     console.log(this.props);
     const { activeItem } = this.state;
     const { auth } = this.props;
     if (auth === true) {
       return (
-        <Link to="/mymovies">
-          <Menu.Item
-            name="movies"
-            active={activeItem === 'movies'}
-            onClick={this.handleItemClick}
-          >
-              My movies
-          </Menu.Item>
-        </Link>
+        <>
+          <Link to="/mymovies">
+            <Menu.Item
+              name="movies"
+              active={activeItem === 'movies'}
+              onClick={this.handleItemClick}
+            >
+                My movies
+            </Menu.Item>
+          </Link>
+          <Link to="/account">
+            <Menu.Item
+              name="Account"
+              active={activeItem === 'Account'}
+              onClick={this.handleItemClick}
+            />
+          </Link>
+        </>
       );
     }
     return (<></>);
@@ -92,14 +101,8 @@ class MenuHead extends Component {
               onClick={this.handleItemClick}
             />
           </Link>
-          {this.renderMyMovies()}
-          <Link to="/account">
-            <Menu.Item
-              name="Account"
-              active={activeItem === 'Account'}
-              onClick={this.handleItemClick}
-            />
-          </Link>
+          {this.renderLoggedInLinks()}
+
           <Menu.Menu position="right">
             <Input
               placeholder="Search..."

@@ -6,7 +6,7 @@ import {
 import Carousel from 'semantic-ui-carousel-react';
 import _ from 'lodash';
 import {
-  itemFetch, itemFetchGenres, randomItemsFetch, saveItem, clearItem,
+  itemFetch, itemFetchGenres, randomItemsFetch, saveItem, clearItem, checkElibility, toogleButton,
 } from '../actions/items';
 import MovieCard from './MovieCard';
 import Loading from './Loading';
@@ -31,15 +31,21 @@ class SingleMovie extends React.Component {
   handleSave = () => {
     const {
       handleSaveItem,
+      toggleSeenButton,
+      seenButton,
       currentItem: {
         id,
       },
     } = this.props;
+    toggleSeenButton(!seenButton);
     handleSaveItem(id);
   }
 
   async triggerElements(id) {
-    const { fetchData, fetchGenres, fetchRandomItems } = this.props;
+    const {
+      fetchData, fetchGenres, fetchRandomItems, getButtonState,
+    } = this.props;
+    getButtonState(id);
     fetchGenres(id);
     fetchRandomItems(5);
     await fetchData(id);
@@ -81,7 +87,8 @@ class SingleMovie extends React.Component {
 
 
   renderButtonSaveLater() {
-    const { auth } = this.props;
+    const { auth, seenButton } = this.props;
+    console.log(seenButton);
     if (auth) {
       return (
         <Button
@@ -93,7 +100,7 @@ class SingleMovie extends React.Component {
           onClick={this.handleSave}
         >
           <Button.Content visible>
-            Watch Later
+            {seenButton ? 'Remove from my list' : 'Watch Later'}
           </Button.Content>
           <Button.Content hidden>
             <Icon name="save outline" />
@@ -127,7 +134,6 @@ class SingleMovie extends React.Component {
                 <p>
                   {item.description}
                 </p>
-
                 <Embed
                   icon="right circle arrow"
                   placeholder="/images/image-16by9.png"
@@ -173,6 +179,7 @@ const mapStateToProps = (state) => {
     randomItems: state.randomItems,
     auth: state.auth,
     currentItem: state.selectedItem,
+    seenButton: state.seenButton,
   };
 };
 
@@ -182,6 +189,8 @@ const mapDispatchToProps = dispatch => ({
   fetchRandomItems: nr => dispatch(randomItemsFetch(nr)),
   handleSaveItem: id => dispatch(saveItem(id)),
   clearingPrev: () => dispatch(clearItem()),
+  getButtonState: id => dispatch(checkElibility(id)),
+  toggleSeenButton: boolval => dispatch(toogleButton(boolval)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SingleMovie);
