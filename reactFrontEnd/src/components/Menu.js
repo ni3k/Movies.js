@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  Menu, Segment, Input,
+  Menu, Segment, Input, Responsive, Sidebar,
 } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -93,7 +93,7 @@ class MenuHead extends Component {
 
     return (
       <Segment inverted>
-        <Menu inverted pointing secondary>
+        <Menu inverted pointing secondary stackable>
           <Link to="/">
             <Menu.Item
               name="home"

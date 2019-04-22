@@ -93,7 +93,7 @@ class PageMovies extends React.Component {
     }
 
     return (
-      <Container>
+      <Container style={{ minHeight: '100vh' }}>
         {
           this.renderFilter()
         }
@@ -105,6 +105,8 @@ class PageMovies extends React.Component {
         </Header>
         <MovieGrid>
           <Pagination
+            boundaryRange={0}
+            ellipsisItem={null}
             defaultActivePage={
         setedPage
       }

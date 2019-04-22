@@ -25,11 +25,12 @@ router.get('/:movieId', async (req, res) => {
   });
   console.log(auth);
   console.log(id);
+  console.log(movieId);
   if (auth) {
     //  check the db and insert
-    const found = archivedMovies.findOne({ where: { userId: id, movieId } });
+    const found = await archivedMovies.findOne({ where: { userId: id, movieId } });
     if (found === null) {
-      await archivedMovies.create({ where: { userId: id, movieId } });
+      await archivedMovies.create({ userId: id, movieId });
     }
     else {
       await archivedMovies.destroy({ where: { userId: id, movieId } });

@@ -14,7 +14,7 @@ class SearchPage extends React.Component {
     console.log(prevProps);
     const { searchTerm: prevSearchTerm } = prevProps;
     const {
-      searchTerm, fetchSearchTerm: searchNow, history, setPageRed: setPage 
+      searchTerm, fetchSearchTerm: searchNow, history, setPageRed: setPage,
     } = this.props;
     if (searchTerm !== prevSearchTerm) {
       searchNow(1);

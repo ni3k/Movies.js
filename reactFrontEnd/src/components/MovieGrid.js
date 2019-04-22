@@ -13,6 +13,9 @@ class MovieGrid extends React.Component {
   renderMovies() {
     const { items, handeClick } = this.props;
     const allItems = _.values(items);
+    if (allItems.length === 0) {
+      return <Header inverted style={{ padding: '30%', paddingBottom: '100vh' }}> There are not currently any movies in this page </Header>;
+    }
     return (
       <Transition
         items={allItems}
@@ -59,7 +62,7 @@ class MovieGrid extends React.Component {
     const {
       hasErrored, isLoading, items, children, title,
     } = this.props;
-    if (items.length === 0) { return <Loading />; }
+
     console.log(items);
 
     if (hasErrored) {
