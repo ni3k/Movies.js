@@ -24,28 +24,35 @@ const renderImage = (poster) => {
 const MovieCard = ({
   title, description, rating, genres, poster, id,
 }) => (
-  <Link to={`/movie/${id}`}>
-    <Popup
-      trigger={(
-        <Card style={{ height: 350 }} inverted="true">
-          { renderImage(poster) }
-          <Card.Content>
-            <Card.Header>{title}</Card.Header>
-            <Card.Description>
-              {genres}
-            </Card.Description>
-          </Card.Content>
-        </Card>
+
+  <Popup
+    as={Link}
+    to={`/movie/${id}`}
+    trigger={(
+      <Card
+        style={{ height: 350 }}
+        inverted="true"
+        as={Link}
+        to={`/movie/${id}`}
+      >
+        { renderImage(poster) }
+        <Card.Content>
+          <Card.Header>{title}</Card.Header>
+          <Card.Description>
+            {genres}
+          </Card.Description>
+        </Card.Content>
+      </Card>
 )}
-    >
-      <Popup.Header>User Rating</Popup.Header>
-      <Popup.Content>
-        <Rating icon="star" defaultRating={rating} maxRating={10} />
-        <br />
-        {description}
-      </Popup.Content>
-    </Popup>
-  </Link>
+  >
+    <Popup.Header>User Rating</Popup.Header>
+    <Popup.Content>
+      <Rating icon="star" defaultRating={rating} maxRating={10} />
+      <br />
+      {description}
+    </Popup.Content>
+  </Popup>
+
 );
 
 export default MovieCard;

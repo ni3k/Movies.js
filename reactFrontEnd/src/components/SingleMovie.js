@@ -88,7 +88,6 @@ class SingleMovie extends React.Component {
 
   renderButtonSaveLater() {
     const { auth, seenButton } = this.props;
-    console.log(seenButton);
     if (auth) {
       return (
         <Button
@@ -113,7 +112,6 @@ class SingleMovie extends React.Component {
 
   render() {
     const { hasErrored, isLoading, item } = this.props;
-    console.log(item.rating);
     if (hasErrored) {
       return <p>Sorry! There was an error loading the items</p>;
     }
@@ -169,19 +167,16 @@ class SingleMovie extends React.Component {
 }
 
 
-const mapStateToProps = (state) => {
-  console.log(state);
-  return {
-    item: state.selectedItem,
-    hasErrored: state.itemsHasErrored,
-    isLoading: state.itemsIsLoading,
-    genres: state.itemGenres,
-    randomItems: state.randomItems,
-    auth: state.auth,
-    currentItem: state.selectedItem,
-    seenButton: state.seenButton,
-  };
-};
+const mapStateToProps = state => ({
+  item: state.selectedItem,
+  hasErrored: state.itemsHasErrored,
+  isLoading: state.itemsIsLoading,
+  genres: state.itemGenres,
+  randomItems: state.randomItems,
+  auth: state.auth,
+  currentItem: state.selectedItem,
+  seenButton: state.seenButton,
+});
 
 const mapDispatchToProps = dispatch => ({
   fetchData: id => dispatch(itemFetch(id)),

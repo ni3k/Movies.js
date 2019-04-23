@@ -6,11 +6,9 @@ import { setFilter } from '../actions/items';
 
 class FilterGenres extends React.PureComponent {
   render() {
-    // console.log(this.props);
     const {
       options, setFilter: triggerSetFilter, filters, onChangeHappened, page,
     } = this.props;
-    console.log(options);
     if (options.length === 0) {
       return (<div />);
     }
@@ -35,7 +33,6 @@ class FilterGenres extends React.PureComponent {
   }
 }
 
-// console.log(state);
 const mapStateToProps = state => ({
   options: state.genres,
   filters: state.filters,

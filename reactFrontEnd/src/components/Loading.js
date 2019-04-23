@@ -17,7 +17,6 @@ const Loading = () => (
       css={override}
       type="bubbles"
       sizeUnit="px"
-    //   size={150}
       color="white"
       loading
     />

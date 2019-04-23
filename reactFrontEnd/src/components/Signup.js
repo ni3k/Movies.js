@@ -25,7 +25,6 @@ class Register extends React.Component {
       email,
     });
     this.setState({ message });
-    console.log(this.state);
   }
 
   renderMessage() {

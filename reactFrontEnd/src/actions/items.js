@@ -99,7 +99,6 @@ export function fetchGenres() {
       genre.map(g => ({ key: g.id, text: g.title, value: g.id })),
     );
     dispatch(allGenres(filtred));
-    console.log(genre);
     // dispatch(itemsIsLoading(false));
   };
 }
@@ -173,9 +172,7 @@ export function itemFetchGenres(id) {
 
 export function fetchSearchTerm(page) {
   return async (dispatch, getState) => {
-    console.log(page);
     const { searchTerm } = getState();
-    console.log(searchTerm);
     dispatch(itemsIsLoading(true));
     const { data: { movies, pages }, statusText } = await api.get(`/searchTitle?title=${searchTerm}&page=${page}`);
     if (statusText !== 'OK') dispatch(itemsHasErrored(true));
@@ -187,7 +184,6 @@ export function fetchSearchTerm(page) {
 
 export const itemsFetchData = url => async (dispatch) => {
   dispatch(itemsIsLoading(true));
-  console.log('here');
   const token = localStorage.getItem('token');
   const { data: { movies, pages }, statusText } = await api.get(url, {
     headers: {
@@ -204,7 +200,6 @@ export const randomItemsFetch = nr => async (dispatch) => {
   // dispatch(itemsIsLoading(true));
   const { data: { movies }, statusText } = await api.get(`/random_movie?number=${nr}`);
   if (statusText !== 'OK') dispatch(itemsHasErrored(true));
-  console.log(movies);
   dispatch(randomItems(_.keyBy(movies, 'id')));
   // dispatch(itemsIsLoading(false));
 };

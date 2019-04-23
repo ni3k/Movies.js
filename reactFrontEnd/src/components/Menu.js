@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  Menu, Segment, Input, Responsive, Sidebar,
+  Menu, Segment, Input,
 } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -11,7 +11,6 @@ class MenuHead extends Component {
 
   componentDidMount() {
     const { setAuth: logging } = this.props;
-    console.log(localStorage.getItem('auth'));
     if (localStorage.getItem('auth') === 'true') {
       logging(true);
     }
@@ -48,40 +47,39 @@ class MenuHead extends Component {
     }
     return (
       <Menu.Menu>
-        <Link to="/login">
-          <Menu.Item
-            name="login"
-            active={activeItem === 'login'}
-            onClick={this.handleItemClick}
-          />
-        </Link>
+        <Menu.Item
+          as={Link}
+          to="/login"
+          name="login"
+          active={activeItem === 'login'}
+          onClick={this.handleItemClick}
+        />
       </Menu.Menu>
     );
   }
 
   renderLoggedInLinks = () => {
-    console.log(this.props);
     const { activeItem } = this.state;
     const { auth } = this.props;
     if (auth === true) {
       return (
         <>
-          <Link to="/mymovies">
-            <Menu.Item
-              name="movies"
-              active={activeItem === 'movies'}
-              onClick={this.handleItemClick}
-            >
-                My movies
-            </Menu.Item>
-          </Link>
-          <Link to="/account">
-            <Menu.Item
-              name="Account"
-              active={activeItem === 'Account'}
-              onClick={this.handleItemClick}
-            />
-          </Link>
+          <Menu.Item
+            as={Link}
+            to="/mymovies"
+            name="movies"
+            active={activeItem === 'movies'}
+            onClick={this.handleItemClick}
+          >
+              My movies
+          </Menu.Item>
+          <Menu.Item
+            as={Link}
+            to="/account"
+            name="Account"
+            active={activeItem === 'Account'}
+            onClick={this.handleItemClick}
+          />
         </>
       );
     }
@@ -94,13 +92,13 @@ class MenuHead extends Component {
     return (
       <Segment inverted>
         <Menu inverted pointing secondary stackable>
-          <Link to="/">
-            <Menu.Item
-              name="home"
-              active={activeItem === 'home'}
-              onClick={this.handleItemClick}
-            />
-          </Link>
+          <Menu.Item
+            as={Link}
+            to="/"
+            name="home"
+            active={activeItem === 'home'}
+            onClick={this.handleItemClick}
+          />
           {this.renderLoggedInLinks()}
 
           <Menu.Menu position="right">

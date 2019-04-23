@@ -60,10 +60,9 @@ class MovieGrid extends React.Component {
 
   render() {
     const {
-      hasErrored, isLoading, items, children, title,
+      hasErrored, isLoading, children, title,
     } = this.props;
 
-    console.log(items);
 
     if (hasErrored) {
       return <p>Sorry! There was an error loading the items</p>;

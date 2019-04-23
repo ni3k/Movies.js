@@ -11,7 +11,6 @@ class SearchPage extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    console.log(prevProps);
     const { searchTerm: prevSearchTerm } = prevProps;
     const {
       searchTerm, fetchSearchTerm: searchNow, history, setPageRed: setPage,
@@ -52,14 +51,11 @@ class SearchPage extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  console.log(state);
-  return {
-    items: state.items,
-    searchTerm: state.searchTerm,
-    setedPage: state.setedPage,
-    pagination: state.pagination,
-  };
-};
+const mapStateToProps = state => ({
+  items: state.items,
+  searchTerm: state.searchTerm,
+  setedPage: state.setedPage,
+  pagination: state.pagination,
+});
 
 export default connect(mapStateToProps, { fetchSearchTerm, setPageRed })(SearchPage);

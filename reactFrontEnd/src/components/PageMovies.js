@@ -124,17 +124,14 @@ class PageMovies extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  console.log(state);
-  return {
-    items: state.items,
-    hasErrored: state.itemsHasErrored,
-    isLoading: state.itemsIsLoading,
-    setedPage: state.setedPage,
-    filters: state.filters,
-    pagination: state.pagination,
-  };
-};
+const mapStateToProps = state => ({
+  items: state.items,
+  hasErrored: state.itemsHasErrored,
+  isLoading: state.itemsIsLoading,
+  setedPage: state.setedPage,
+  filters: state.filters,
+  pagination: state.pagination,
+});
 
 const mapDispatchToProps = dispatch => ({
   fetchData: url => dispatch(itemsFetchData(url)),

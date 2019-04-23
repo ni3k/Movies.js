@@ -52,7 +52,6 @@ export function auth(state = false, action) {
 }
 
 export function searchTerm(state = '', action) {
-  console.log(action);
   switch (action.type) {
     case 'SETED_SEARCH_TERM':
       return action.term;
@@ -62,7 +61,6 @@ export function searchTerm(state = '', action) {
 }
 
 export function genres(state = [], action) {
-  console.log(action);
   switch (action.type) {
     case 'GENRE_FETCH_SUCCESS':
       return [...action.genres];
@@ -81,7 +79,6 @@ export function filters(state = [], action) {
 }
 
 export function setedPage(state = 1, action) {
-  console.log(action);
   switch (action.type) {
     case 'PAGE_SET':
       return action.page;
