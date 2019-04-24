@@ -14,6 +14,7 @@ import Login from './Login';
 import Register from './Signup';
 import MyMovies from './MyMovies';
 import Account from './Account';
+import ParralaxSection from './ParralaxSection';
 
 const store = configureStore();
 
@@ -23,6 +24,7 @@ const App = (
       <Segment inverted style={{ padding: 0 }}>
         <Menu />
         <Switch>
+          <Route exact path="/welcome" component={ParralaxSection} />
           <Route exact path="/account" component={Account} />
           <Route exact path="/mymovies/:page" component={MyMovies} />
           <Route exact path="/mymovies" render={() => (<Redirect to="mymovies/1" />)} />

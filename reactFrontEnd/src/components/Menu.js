@@ -99,6 +99,13 @@ class MenuHead extends Component {
             active={activeItem === 'home'}
             onClick={this.handleItemClick}
           />
+          <Menu.Item
+            as={Link}
+            to="/welcome"
+            name="welcome"
+            active={activeItem === 'welcome'}
+            onClick={this.handleItemClick}
+          />
           {this.renderLoggedInLinks()}
 
           <Menu.Menu position="right">
