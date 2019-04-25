@@ -9,7 +9,6 @@ const cors = require('cors');
 const passport = require('passport');
 
 const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
 const allMovies = require('./routes/allMovies');
 const getMovieById = require('./routes/getMovieById');
 const getRandomMovie = require('./routes/getRandomMovie');
@@ -43,7 +42,6 @@ app.use(passport.initialize());
 
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
 app.use('/all_movies', allMovies);
 app.use('/movie', getMovieById);
 app.use('/random_movie', getRandomMovie);
