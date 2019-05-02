@@ -16,7 +16,7 @@ router.get('/', async (req, res) => {
   }
   if (typeof req.query.page !== 'undefined') page = parseInt(req.query.page, 10);
   if (typeof req.query.limit !== 'undefined') limit = parseInt(req.query.limit, 10);
-  const { count } = await Movie.findAndCountAll({
+  const { count } = await Movie.count({
     where: { title: { [Sequelize.Op.substring]: title } }
   });
   const pages = Math.ceil(count / limit);
