@@ -3,7 +3,10 @@
     "version": "0.0.0",
     "private": true,
     "scripts": {
-        "start": "nodemon ./bin/www"
+        "start": "nodemon ./bin/www",
+        "db:migrate": "./node_modules/.bin/sequelize db:migrate",
+        "db:seed": "./node_modules/.bin/sequelize db:seed:all",
+        "seq": "./node_modules/.bin/sequelize"
     },
     "dependencies": {
         "axios": "^0.18.0",
