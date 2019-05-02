@@ -2,7 +2,7 @@ const express = require('express');
 
 const router = express.Router();
 const Movies = require('../models/movie');
-const api = require('../apiConfig/config');
+const api = require('../apiConfig/axios');
 const archivedMovies = require('../models/archivedmovies');
 
 /* GET archived movies later. */

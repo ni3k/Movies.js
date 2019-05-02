@@ -1,7 +1,7 @@
 const express = require('express');
 
 const router = express.Router();
-const api = require('../apiConfig/config');
+const api = require('../apiConfig/axios');
 const archivedMovies = require('../models/archivedmovies');
 
 /* check eligibliness. */

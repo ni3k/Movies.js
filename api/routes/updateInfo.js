@@ -5,7 +5,7 @@ const User = require('../models/users');
 const jwtSecret = require('../config/jwtConfig');
 
 const router = express.Router();
-const api = require('../apiConfig/config');
+const api = require('../apiConfig/axios');
 
 
 /* patch user info. */
