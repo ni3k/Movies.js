@@ -6,16 +6,14 @@ const Movie = require('../models/movie');
 
 /* GET by title movie. */
 router.get('/', async (req, res) => {
-  let page = 1;
-  let limit = 10;
   let offset = 0;
+  const limit = parseInt(req.query.limit, 10) || 10;
+  const page = parseInt(req.query.page, 10) || 1;
   const { query: { title } } = req;
   res.setHeader('Content-Type', 'application/json');
   if (title === undefined) {
     res.end(JSON.stringify({ movies: [] }));
   }
-  if (typeof req.query.page !== 'undefined') page = parseInt(req.query.page, 10);
-  if (typeof req.query.limit !== 'undefined') limit = parseInt(req.query.limit, 10);
   const { count } = await Movie.count({
     where: { title: { [Sequelize.Op.substring]: title } }
   });

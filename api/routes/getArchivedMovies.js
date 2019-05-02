@@ -7,13 +7,9 @@ const archivedMovies = require('../models/archivedmovies');
 
 /* GET archived movies later. */
 router.get('/', async (req, res) => {
-  let page = 1;
-  let limit = 10;
   let offset = 0;
-
-  if (typeof req.query.page !== 'undefined') page = parseInt(req.query.page, 10);
-  if (typeof req.query.limit !== 'undefined') limit = parseInt(req.query.limit, 10);
-
+  const limit = parseInt(req.query.limit, 10) || 10;
+  const page = parseInt(req.query.page, 10) || 1;
 
   const token = req.get('Authorization');
   if (!token) {

@@ -22,13 +22,9 @@ const getMoviesIdByGenres = async (genres) => {
 /* GET all movies by genres. */
 router.get('/', async (req, res) => {
   res.setHeader('Content-Type', 'application/json');
-  let page = 1;
-  let limit = 10;
   let offset = 0;
-  if (typeof req.query.page !== 'undefined') {
-    page = parseInt(req.query.page, 10);
-  }
-  if (typeof req.query.limit !== 'undefined') limit = parseInt(req.query.limit, 10);
+  const limit = parseInt(req.query.limit, 10) || 10;
+  const page = parseInt(req.query.page, 10) || 1;
   // check if there are any params
   if (typeof req.query.genres === 'undefined') {
     res.end(JSON.stringify({ movies: [] }));
