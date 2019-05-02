@@ -6,7 +6,6 @@ const archivedMovies = require('../models/archivedmovies');
 
 /* check eligibliness. */
 router.get('/:movieId', async (req, res) => {
-  res.setHeader('Content-Type', 'application/json');
   const { movieId } = req.params;
   const token = req.get('Authorization');
   if (!token) {
@@ -29,13 +28,13 @@ router.get('/:movieId', async (req, res) => {
     const found = await archivedMovies.findOne({ where: { userId: id, movieId } });
     console.log(found);
     if (found === null) {
-      res.end(JSON.stringify({ movie: false }));
+      res.send({ movie: false });
     }
     else {
-      res.end(JSON.stringify({ movie: true }));
+      res.send({ movie: true });
     }
   }
-  res.end(JSON.stringify({ movie: false }));
+  res.send({ movie: false });
 });
 
 module.exports = router;

@@ -16,15 +16,10 @@ router.get('/:movieId', async (req, res) => {
   })).map(relation => relation.genreId);
   console.log(relationsJson);
   const withStrings = await genresDb.findAll({ where: { id: relationsJson }, raw: true });
-  res.setHeader('Content-Type', 'application/json');
-  let withString = false;
   if (typeof req.query.string !== 'undefined') {
-    withString = true;
+    res.send({ genres: withStrings });
   }
-  if (withString) {
-    res.end(JSON.stringify({ genres: withStrings }));
-  }
-  res.end(JSON.stringify({ genres: relationsJson }));
+  res.send({ genres: relationsJson });
 });
 
 module.exports = router;

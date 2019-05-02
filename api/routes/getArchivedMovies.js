@@ -34,7 +34,10 @@ router.get('/', async (req, res) => {
 
   const count = moviesIds.length;
   const pages = Math.ceil(count / limit);
-  if (page > pages) res.end(JSON.stringify({ movies: [], pages: 1 }));
+  if (page > pages) {
+    res.send({ movies: [], pages: 1 });
+    return;
+  }
   offset = limit * (page - 1);
   const foundMovies = await Movies.findAll({
     where: { id: moviesIdsFiltered },
@@ -46,12 +49,10 @@ router.get('/', async (req, res) => {
   console.log(foundMovies);
 
   // const MoviesJson = await Movie.findAll({ limit, order: [Sequelize.fn('RAND')], raw: true });
-
-  res.setHeader('Content-Type', 'application/json');
-  res.end(JSON.stringify({
+  res.send({
     movies: foundMovies,
     pages
-  }));
+  });
 });
 
 module.exports = router;

@@ -5,13 +5,15 @@ const Movie = require('../models/movie');
 
 /* GET all movies. */
 router.get('/', async (req, res) => {
-  res.setHeader('Content-Type', 'application/json');
   let offset = 0;
   const limit = parseInt(req.query.limit, 10) || 10;
   const page = parseInt(req.query.page, 10) || 1;
   const { count } = await Movie.count();
   const pages = Math.ceil(count / limit);
-  if (page > pages) res.end(JSON.stringify({ movies: [] }));
+  if (page > pages) {
+    res.send({ movies: [] });
+    return;
+  }
   offset = limit * (page - 1);
 
   const MoviesJson = await Movie.findAll({
@@ -22,7 +24,7 @@ router.get('/', async (req, res) => {
   });
   console.log(MoviesJson);
 
-  res.end(JSON.stringify({ movies: MoviesJson, pages }));
+  res.send({ movies: MoviesJson, pages });
 });
 
 module.exports = router;

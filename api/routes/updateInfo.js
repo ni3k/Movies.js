@@ -11,7 +11,6 @@ const api = require('../apiConfig/axios');
 /* patch user info. */
 router.patch('/', async (req, res) => {
   const { firstName, lastName, email } = req.body;
-  res.setHeader('Content-Type', 'application/json');
   const token = req.get('Authorization');
   if (!token) {
     res.status(200).send({
@@ -32,11 +31,11 @@ router.patch('/', async (req, res) => {
     //  check the db and insert
     User.update({ firstName, email, lastName }, { where: { id } });
     const Token = jwt.sign({ id: email }, jwtSecret.secret);
-    res.end(JSON.stringify({ token: Token }));
+    res.send({ token: Token });
     console.log(req.body);
   }
   // const MoviesJson = await Movie.findAll({ limit, order: [Sequelize.fn('RAND')], raw: true });
-  res.end(JSON.stringify({ succes: 0 }));
+  res.send({ succes: 0 });
 });
 
 module.exports = router;

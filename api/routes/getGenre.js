@@ -9,8 +9,7 @@ router.get('/:id', async (req, res) => {
   console.log(id);
   const relationsJson = (await Genres.findByPk(id, { attributes: ['title'] }))
     .title;
-  res.setHeader('Content-Type', 'application/json');
-  res.end(JSON.stringify({ genre: relationsJson }));
+  res.send({ genre: relationsJson });
 });
 
 module.exports = router;

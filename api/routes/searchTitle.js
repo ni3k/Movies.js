@@ -10,15 +10,17 @@ router.get('/', async (req, res) => {
   const limit = parseInt(req.query.limit, 10) || 10;
   const page = parseInt(req.query.page, 10) || 1;
   const { query: { title } } = req;
-  res.setHeader('Content-Type', 'application/json');
   if (title === undefined) {
-    res.end(JSON.stringify({ movies: [] }));
+    res.send({ movies: [] });
   }
   const { count } = await Movie.count({
     where: { title: { [Sequelize.Op.substring]: title } }
   });
   const pages = Math.ceil(count / limit);
-  if (page > pages) res.end(JSON.stringify({ movies: [] }));
+  if (page > pages) {
+    res.send({ movies: [] });
+    return;
+  }
   offset = limit * (page - 1);
 
   const MoviesJson = await Movie.findAll(
@@ -26,7 +28,7 @@ router.get('/', async (req, res) => {
       where: { title: { [Sequelize.Op.substring]: title } }, raw: true, limit, offset
     }
   );
-  res.end(JSON.stringify({ movies: MoviesJson, pages }));
+  res.send({ movies: MoviesJson, pages });
 });
 
 module.exports = router;

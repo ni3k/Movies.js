@@ -7,7 +7,6 @@ const archivedMovies = require('../models/archivedmovies');
 
 /* GET watch later. */
 router.get('/:movieId', async (req, res) => {
-  res.setHeader('Content-Type', 'application/json');
   const { movieId } = req.params;
   const token = req.get('Authorization');
   if (!token) {
@@ -37,7 +36,7 @@ router.get('/:movieId', async (req, res) => {
     }
   }
   // const MoviesJson = await Movie.findAll({ limit, order: [Sequelize.fn('RAND')], raw: true });
-  res.end(JSON.stringify({ movies: [] }));
+  res.send({ movies: [] });
 });
 
 module.exports = router;

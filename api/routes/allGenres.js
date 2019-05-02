@@ -6,8 +6,7 @@ const Genres = require('../models/genres');
 /* GET all genres. */
 router.get('/', async (req, res) => {
   const relationsJson = (await Genres.findAll({ attributes: ['title', 'id'] }));
-  res.setHeader('Content-Type', 'application/json');
-  res.end(JSON.stringify({ genre: relationsJson }));
+  res.send({ genre: relationsJson });
 });
 
 module.exports = router;
