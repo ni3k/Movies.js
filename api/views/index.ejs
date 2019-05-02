@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+    app.use('/', indexRouter); -> get this page <br>
+    app.use('/all_movies', allMovies); -> get all movies, ?page=x&limit=y <br>
+    app.use('/movie', getMovieById); -> get movie by id /:id <br>
+    app.use('/random_movie', getRandomMovie); -> get random movie optionsl: ?number=3<br>
+    app.use('/by_genre', getMoviesByGenre); -> get movies by genre ?genres=1,2,3 <br>
+    app.use('/moviegenre', getGenresByMovie); -> get genres by movie /:id optional: ?string=true <br>
+    app.use('/genreid', getGenreId); -> get genre id /:id  returns genre name <br>
+    app.use('/allgenres', allGenres); -> returns all genres <br>
+    app.use('/getArchivedMovies') -> returns archived movies by user id /:id -> needs the jwt token in header <br>
+    app.use('/searchTitle', searchTitle); -> returns array of movies ?title=some title <br>
+    app.use('/watchlater', watchLater); -> insert into database relation /:userId/:movieId (needs jwt token in header authorization)<br>
+    app.use('/getwatchlater', getwatchlater); -> returns array of movie items /:userId (needs jwt token in header authorization) <br>
+
+    <h1> for loging</h1>
+    app.use('/register', registerUser); -> as indicated in passport <br>
+    app.use('/login', loginUser);-> as indicated in passport <br>
+    app.use('/finduser', findUser); -> jwt token in header (https://itnext.io/implementing-json-web-tokens-passport-js-in-a-javascript-application-with-react-b86b1f313436) <br>
+  </body>
+</html>

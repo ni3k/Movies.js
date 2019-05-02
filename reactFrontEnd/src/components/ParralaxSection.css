@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700');
+@import url('https://fonts.googleapis.com/css?family=Varela+Round');
+body{
+  background: black;
+}
+.background-color p {
+  color: #000;
+  font-family: 'montserrat';
+  font-size: 3vw;
+  font-weight: bold;
+  letter-spacing: 0.5vw;
+  max-width: 700px;
+  text-align: center;
+  background: rgba(255, 253, 160, 1);
+  background: -webkit-linear-gradient( left, #00ffff 0%, #97fba0 25%, #97b1fb 50%, #00ffff 100%) repeat;
+  -webkit-background-clip: text;
+  -ms-background-clip: text;
+  -moz-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -ms-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+  text-fill-color: transparent;
+  -webkit-animation-name: masked-animation;
+  -webkit-animation-duration: 50s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+}
+.right p {
+  margin-right: 10%;
+  margin-left: auto;
+}
+.left p {
+  margin-left: 5%;
+}
+h1 {
+  background-image: linear-gradient(#7795B0 0, #7795B0 3px, #000000 4px, #6380AE 30%, #DDC4C3 50%, #B9957F 50%, #B9957F 53%, #fdba60 53%, #000000 80%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: white;
+  width: 100%;
+  height: 1.5em;
+  position: absolute;
+  font-family: 'Varela Round', sans-serif;
+  font-size: 8em;
+  line-height: 1em;
+  word-wrap: nowrap;
+}
+
+@-webkit-keyframes masked-animation {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: -8000px -3000px;
+  }
+}
