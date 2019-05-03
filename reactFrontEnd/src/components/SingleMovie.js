@@ -6,7 +6,7 @@ import {
 import Carousel from 'semantic-ui-carousel-react';
 import _ from 'lodash';
 import {
-  itemFetch, itemFetchGenres, randomItemsFetch, saveItem, clearItem, checkElibility, toogleButton,
+  itemFetch, randomItemsFetch, saveItem, clearItem, checkElibility, toogleButton,
 } from '../actions/items';
 import MovieCard from './MovieCard';
 import Loading from './Loading';
@@ -43,10 +43,10 @@ class SingleMovie extends React.Component {
 
   async triggerElements(id) {
     const {
-      fetchData, fetchGenres, fetchRandomItems, getButtonState,
+      fetchData, fetchRandomItems, getButtonState,
     } = this.props;
     getButtonState(id);
-    fetchGenres(id);
+    // fetchGenres(id);
     fetchRandomItems(5);
     await fetchData(id);
   }
@@ -79,8 +79,8 @@ class SingleMovie extends React.Component {
   renderLabels() {
     const { genres } = this.props;
     return genres.map(genre => (
-      <Label as="a" pointing basic key={genre.id}>
-        {genre.title}
+      <Label as="a" pointing basic key={genre}>
+        {genre}
       </Label>
     ));
   }
@@ -115,7 +115,7 @@ class SingleMovie extends React.Component {
     if (hasErrored) {
       return <p>Sorry! There was an error loading the items</p>;
     }
-    if (isLoading || item.rating === undefined) {
+    if (isLoading || item.rating === undefined || item.genres.length === 0) {
       return <Loading />;
     }
 
@@ -180,7 +180,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   fetchData: id => dispatch(itemFetch(id)),
-  fetchGenres: id => dispatch(itemFetchGenres(id)),
+  // fetchGenres: id => dispatch(itemFetchGenres(id)),
   fetchRandomItems: nr => dispatch(randomItemsFetch(nr)),
   handleSaveItem: id => dispatch(saveItem(id)),
   clearingPrev: () => dispatch(clearItem()),
