@@ -7,7 +7,7 @@ const logger = require('morgan');
 const app = express();
 const cors = require('cors');
 const passport = require('passport');
-
+const MovieController = require('./classes/MovieController');
 const indexRouter = require('./routes/index');
 const {
   routerAllMovies,
@@ -44,17 +44,14 @@ app.use(passport.initialize());
 
 
 app.use('/', indexRouter);
-app.use('/all_movies', routerAllMovies);
-app.use('/movie', routerSingleMovie);
-app.use('/random_movie', randomMovie);
-app.use('/by_genre', byGenre);
+const movieController = new MovieController('', app);
+
 app.use('/moviegenre', MovieGenre);
 app.use('/genreid', getGenreId);
 app.use('/register', registerUser);
 app.use('/login', loginUser);
 app.use('/finduser', findUser);
 app.use('/allgenres', allGenres);
-app.use('/searchTitle', searchTitle);
 app.use('/watchlater', watchLater);
 app.use('/getwatchlater', getwatchlater);
 app.use('/updateUser', updateUser);
