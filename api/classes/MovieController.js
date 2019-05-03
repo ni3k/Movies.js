@@ -1,6 +1,5 @@
 /* eslint-disable class-methods-use-this */
 // eslint-disable-next-line class-methods-use-this
-const express = require('express');
 const axios = require('axios');
 const Sequelize = require('sequelize');
 const Router = require('./RouteCreator');
@@ -132,34 +131,3 @@ class MovieController extends Router {
 }
 
 module.exports = MovieController;
-
-// app.use('/', indexRouter);
-// app.use('/moviegenre', MovieGenre);
-// app.use('/genreid', getGenreId);
-// app.use('/register', registerUser);
-// app.use('/login', loginUser);
-// app.use('/finduser', findUser);
-// app.use('/allgenres', allGenres);
-// app.use('/watchlater', watchLater);
-// app.use('/getwatchlater', getwatchlater);
-// app.use('/updateUser', updateUser);
-// app.use('/checkMovie', checkEligibliness);
-
-
-// /* GET  genres by movie. */
-// MovieGenre.get('/:movieId', async (req, res) => {
-//   const { movieId } = req.params;
-//   console.log(movieId);
-//   const genres = await Movie.findAll({
-//     raw: true,
-//     attributes: [],
-//     where: { id: movieId },
-//     include: [{
-//       model: Genre,
-//       raw: true,
-//       attributes: { include: ['title'], exclude: ['id', 'createdAt', 'updatedAt'] }
-//     }]
-//   });
-//   const onlyTitles = genres.map(genre => genre['genres.title']);
-//   res.send(onlyTitles);
-// });

@@ -8,6 +8,8 @@ const app = express();
 const cors = require('cors');
 const passport = require('passport');
 const MovieController = require('./classes/MovieController');
+const GenreController = require('./classes/GenreController');
+
 const indexRouter = require('./routes/index');
 const {
   routerAllMovies,
@@ -45,9 +47,8 @@ app.use(passport.initialize());
 
 app.use('/', indexRouter);
 const movieController = new MovieController('', app);
+const genreController = new GenreController('', app);
 
-app.use('/moviegenre', MovieGenre);
-app.use('/genreid', getGenreId);
 app.use('/register', registerUser);
 app.use('/login', loginUser);
 app.use('/finduser', findUser);
@@ -56,7 +57,7 @@ app.use('/watchlater', watchLater);
 app.use('/getwatchlater', getwatchlater);
 app.use('/updateUser', updateUser);
 app.use('/checkMovie', checkEligibliness);
-// app.use('/routes/registerUser', )
+
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
