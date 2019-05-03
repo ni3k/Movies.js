@@ -12,7 +12,7 @@ router.get('/', async (req, res) => {
   const page = parseInt(req.query.page, 10) || 1;
   const count = await Movie.count();
   console.log(count, page);
-  const pages = Math.ceil(parseInt(count, 10) / limit);
+  const pages = Math.ceil(count, 10 / limit);
   console.log(pages);
   if (page > pages) {
     res.send({ movies: [] });

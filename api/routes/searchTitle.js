@@ -13,7 +13,7 @@ router.get('/', async (req, res) => {
   if (title === undefined) {
     res.send({ movies: [] });
   }
-  const { count } = await Movie.count({
+  const count = await Movie.count({
     where: { title: { [Sequelize.Op.substring]: title } }
   });
   const pages = Math.ceil(count / limit);

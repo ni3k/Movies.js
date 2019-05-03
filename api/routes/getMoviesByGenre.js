@@ -31,7 +31,7 @@ router.get('/', async (req, res) => {
   else {
     const genres = req.query.genres.split(',');
     const movieIds = await getMoviesIdByGenres(genres);
-    const { count } = await Movie.count({ where: { id: movieIds } });
+    const count = await Movie.count({ where: { id: movieIds } });
     const pages = Math.ceil(count / limit);
     if (page > pages) {
       res.send({ movies: [] });
