@@ -9,12 +9,16 @@ const cors = require('cors');
 const passport = require('passport');
 
 const indexRouter = require('./routes/index');
-const { routerAllMovies, routerSingleMovie, randomMovie, MovieGenre, byGenre } = require('./routes/movieRouters');
-// const getMoviesByGenre = require('./routes/getMoviesByGenre');
-// const getGenresByMovie = require('./routes/getMovieGenres');
-const getGenreId = require('./routes/getGenre');
-const allGenres = require('./routes/allGenres');
-const searchTitle = require('./routes/searchTitle');
+const {
+  routerAllMovies,
+  routerSingleMovie,
+  randomMovie,
+  MovieGenre,
+  byGenre,
+  searchTitle,
+  getGenreId,
+  allGenres
+} = require('./routes/movieRouters');
 
 const registerUser = require('./routes/registerUser');
 const loginUser = require('./routes/loginUser');

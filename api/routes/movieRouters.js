@@ -7,6 +7,9 @@ const routerSingleMovie = express.Router();
 const MovieGenre = express.Router();
 const randomMovie = express.Router();
 const byGenre = express.Router();
+const searchTitle = express.Router();
+const getGenreId = express.Router();
+const allGenres = express.Router();
 
 const Movie = require('../models/movie');
 const Genre = require('../models/genres');
@@ -118,6 +121,57 @@ byGenre.get('/', async (req, res) => {
   }
 });
 
+/* GET by title movie. */
+searchTitle.get('/', async (req, res) => {
+  let offset = 0;
+  const limit = parseInt(req.query.limit, 10) || 10;
+  const page = parseInt(req.query.page, 10) || 1;
+  const { query: { title } } = req;
+  if (title === undefined) {
+    res.send({ movies: [] });
+  }
+  const count = await Movie.count({
+    where: { title: { [Sequelize.Op.substring]: title } }
+  });
+  const pages = Math.ceil(count / limit);
+  if (page > pages) {
+    res.send({ movies: [] });
+    return;
+  }
+  offset = limit * (page - 1);
+
+  const MoviesJson = await Movie.findAll(
+    {
+      where: { title: { [Sequelize.Op.substring]: title } }, raw: true, limit, offset
+    }
+  );
+  res.send({ movies: MoviesJson, pages });
+});
+
+// optional
+
+/* GET  genres by id. */
+getGenreId.get('/:id', async (req, res) => {
+  const { id } = req.params;
+  console.log(id);
+  const relationsJson = (await Genre.findByPk(id, { attributes: ['title'] }))
+    .title;
+  res.send({ genre: relationsJson });
+});
+
+/* GET all genres. */
+allGenres.get('/', async (req, res) => {
+  const relationsJson = (await Genre.findAll({ attributes: ['title', 'id'] }));
+  res.send({ genre: relationsJson });
+});
+
 module.exports = {
-  routerAllMovies, routerSingleMovie, randomMovie, MovieGenre, byGenre
+  routerAllMovies,
+  routerSingleMovie,
+  randomMovie,
+  MovieGenre,
+  byGenre,
+  searchTitle,
+  getGenreId,
+  allGenres
 };
