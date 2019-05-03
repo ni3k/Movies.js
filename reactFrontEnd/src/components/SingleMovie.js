@@ -133,7 +133,6 @@ class SingleMovie extends React.Component {
                 </p>
                 <Embed
                   icon="right circle arrow"
-                  placeholder="/images/image-16by9.png"
                   url={`https://videospider.stream/getvideo?key=gIBI3N1PHUQ0H9mB&video_id=${item.imdbID}&ticket=${item.Ticket}`}
                 />
                 {this.renderLabels()}
