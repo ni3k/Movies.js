@@ -46,7 +46,6 @@ class SingleMovie extends React.Component {
       fetchData, fetchRandomItems, getButtonState,
     } = this.props;
     getButtonState(id);
-    // fetchGenres(id);
     fetchRandomItems(5);
     await fetchData(id);
   }
@@ -79,8 +78,8 @@ class SingleMovie extends React.Component {
   renderLabels() {
     const { genres } = this.props;
     return genres.map(genre => (
-      <Label as="a" pointing basic key={genre}>
-        {genre}
+      <Label as="a" pointing basic key={genre.id}>
+        {genre.title}
       </Label>
     ));
   }
@@ -180,7 +179,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   fetchData: id => dispatch(itemFetch(id)),
-  // fetchGenres: id => dispatch(itemFetchGenres(id)),
   fetchRandomItems: nr => dispatch(randomItemsFetch(nr)),
   handleSaveItem: id => dispatch(saveItem(id)),
   clearingPrev: () => dispatch(clearItem()),

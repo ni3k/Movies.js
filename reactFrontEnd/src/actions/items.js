@@ -161,16 +161,6 @@ export function itemFetch(id) {
   };
 }
 
-// export function itemFetchGenres(id) {
-//   return async (dispatch) => {
-//     dispatch(itemsIsLoading(true));
-//     const { data: { genres }, statusText } = await api.get(`/moviegenre/${id}?string=true`);
-//     if (statusText !== 'OK') dispatch(itemsHasErrored(true));
-//     dispatch(itemGenres(genres));
-//     dispatch(itemsIsLoading(false));
-//   };
-// }
-
 export function fetchSearchTerm(page) {
   return async (dispatch, getState) => {
     const { searchTerm } = getState();

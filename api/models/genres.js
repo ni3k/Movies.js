@@ -1,6 +1,7 @@
 const Sequelize = require('sequelize');
 const db = require('../config/database');
 
+
 const Genres = db.define(
   'genres',
   {
@@ -16,5 +17,5 @@ const Genres = db.define(
   }
 );
 
-
+// Genres.hasMany(Movie, { through: GenreMovie });
 module.exports = Genres;

@@ -1,5 +1,7 @@
 const Sequelize = require('sequelize');
 const db = require('../config/database');
+const GenreMovie = require('./relationGenreMovie');
+const Genres = require('./genres');
 
 const Movie = db.define(
   'movie',
@@ -30,5 +32,10 @@ const Movie = db.define(
     freezeTableName: true
   }
 );
+
+// Movie.hasMany(Genres, { through: GenreMovie });
+
+Movie.belongsToMany(Genres, { through: GenreMovie });
+Genres.belongsToMany(Movie, { through: GenreMovie });
 
 module.exports = Movie;

@@ -1,7 +1,5 @@
 const Sequelize = require('sequelize');
 const db = require('../config/database');
-const Movie = require('./movie');
-const Genres = require('./genres');
 
 const GenreMovie = db.define(
   'relations',
@@ -23,7 +21,5 @@ const GenreMovie = db.define(
   }
 );
 
-Movie.belongsToMany(Genres, { through: GenreMovie });
-Genres.belongsToMany(Movie, { through: GenreMovie });
 
 module.exports = GenreMovie;
