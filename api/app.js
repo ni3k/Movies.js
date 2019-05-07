@@ -11,7 +11,7 @@ const MovieController = require('./controllers/MovieController');
 const GenreController = require('./controllers/GenreController');
 const UserController = require('./controllers/UserController');
 const UserInteractionsController = require('./controllers/UserInteractionsController');
-
+require('dotenv').config();
 // for api information
 const indexRouter = express.Router();
 indexRouter.get('/', (req, res) => {

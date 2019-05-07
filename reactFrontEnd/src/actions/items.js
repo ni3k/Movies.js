@@ -156,6 +156,7 @@ export function itemFetch(id) {
     const { data: { movies }, statusText } = await api.get(`/movie/${id}`);
     if (statusText !== 'OK') dispatch(itemsHasErrored(true));
     //  converting to object like: id: [object]
+    console.log(movies);
     dispatch(selectedItem(movies));
     dispatch(itemGenres(movies.genres));
     dispatch(itemsIsLoading(false));

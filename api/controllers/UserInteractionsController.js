@@ -5,8 +5,12 @@ const Router = require('../classes/RouteCreator');
 const archivedMovies = require('../models/archivedmovies');
 
 const Movie = require('../models/movie');
-
+/**
+ * Represents UserInteractionsController.
+ * @constructor
+ */
 class UserInteractionsController extends Router {
+  /** replaces the function services from Roter class (classes/RouteCreator) */
   get services() {
     return {
       '/watchlater/:movieId': 'watchLater',
@@ -15,6 +19,10 @@ class UserInteractionsController extends Router {
     };
   }
 
+  /** /watchlater/:movieId -> inserts
+   * (or deletes if the movie is already in the db) the movie in 'Watch later movies' db by
+   * the name of archivedMovies, requires jwt token in header Authorization
+   * (works like a toggle) */
   async watchLater(req, res, next) {
     passport.authenticate('jwt', { session: false }, async (err, user, info) => {
       if (err) {
@@ -40,6 +48,10 @@ class UserInteractionsController extends Router {
     res.send({ movies: [] });
   }
 
+  /** /getwatchlater -> gets the list of watch later movies from archivedMovies db,
+   * requires jwt token in headers Authorization
+   * optional: limit (= 10 by default) and page (= 1 by default)
+   */
   async getWatchLater(req, res, next) {
     let offset = 0;
     const limit = parseInt(req.query.limit, 10) || 10;
@@ -51,37 +63,36 @@ class UserInteractionsController extends Router {
       }
       if (info !== undefined) {
         console.log(info.message);
-        res.send(info.message);
+        return res.send(info.message);
       }
-      else {
-        //  check the db and insert
-        const { id } = user;
-        const moviesIds = await archivedMovies.findAll({ where: { userId: id }, raw: true, attributes: ['movieId'] });
-        const moviesIdsFiltered = moviesIds.map(obj => obj.movieId);
+      //  check the db and insert
+      const { id } = user;
+      const moviesIds = await archivedMovies.findAll({ where: { userId: id }, raw: true, attributes: ['movieId'] });
+      const moviesIdsFiltered = moviesIds.map(obj => obj.movieId);
 
-        const count = moviesIds.length;
-        const pages = Math.ceil(count / limit);
-        if (page > pages) {
-          res.send({ movies: [], pages: 1 });
-          return;
-        }
-        offset = limit * (page - 1);
-        const foundMovies = await Movie.findAll({
-          where: { id: moviesIdsFiltered },
-          raw: true,
-          limit,
-          offset,
-          subQuery: false
-        });
-        console.log(foundMovies);
-        res.send({
-          movies: foundMovies,
-          pages
-        });
+      const count = moviesIds.length;
+      const pages = Math.ceil(count / limit);
+      if (page > pages) {
+        return res.send({ movies: [], pages: 1 });
       }
+      offset = limit * (page - 1);
+      const foundMovies = await Movie.findAll({
+        where: { id: moviesIdsFiltered },
+        raw: true,
+        limit,
+        offset,
+        subQuery: false
+      });
+      console.log(foundMovies);
+      return res.send({
+        movies: foundMovies,
+        pages
+      });
     })(req, res, next);
   }
 
+  /** /checkMovie/:movieId -> checks a single entity of movie if
+   * is in the table archivedMovies or not, requires jwt token in headers Authorization */
   async checkMovie(req, res, next) {
     const { movieId } = req.params;
     passport.authenticate('jwt', { session: false }, async (err, user, info) => {

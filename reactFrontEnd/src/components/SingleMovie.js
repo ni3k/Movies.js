@@ -90,7 +90,7 @@ class SingleMovie extends React.Component {
     if (auth) {
       return (
         <Button
-          animated="arrow right"
+          animated
           floated="right"
           size="mini"
           color="blue"
@@ -117,7 +117,7 @@ class SingleMovie extends React.Component {
     if (isLoading || item.rating === undefined || item.genres.length === 0) {
       return <Loading />;
     }
-
+    console.log(item);
     return (
       <Container style={{ height: '100vh' }}>
         <br />

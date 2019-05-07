@@ -6,7 +6,12 @@ const Router = require('../classes/RouteCreator');
 const User = require('../models/users');
 const jwtSecret = require('../config/jwtConfig');
 
+/**
+ * Represents UserController.
+ * @constructor
+ */
 class UserController extends Router {
+  /** replaces the function services from Roter class (classes/RouteCreator) */
   get services() {
     return {
       'POST /register': 'registerUser',
@@ -16,6 +21,8 @@ class UserController extends Router {
     };
   }
 
+  /** patch to /updateUser, requires firstName,
+   * lastName and email in req.body and jwt token in headers (Authorization) */
   async updateUser(req, res, next) {
     passport.authenticate('jwt', { session: false }, async (err, user, info) => {
       if (err) {
@@ -37,6 +44,8 @@ class UserController extends Router {
     res.send({ succes: 0 });
   }
 
+  /** Post to /register, requires firstName, lastName,
+   * password and email in req.body, uses passport with the name register */
   async registerUser(req, res, next) {
     console.log(req.body);
     passport.authenticate('register', (err, user, info) => {
@@ -65,7 +74,6 @@ class UserController extends Router {
                 email: data.email
               })
               .then(() => {
-                console.log('user created in db');
                 res.status(200).send({ message: 'user created' });
               });
           });
@@ -74,6 +82,7 @@ class UserController extends Router {
     })(req, res, next);
   }
 
+  /** Post to /login, requires email and password in body, uses passport with the name login */
   async loginUser(req, res, next) {
     passport.authenticate('login', (err, user, info) => {
       console.log(user);
@@ -109,6 +118,7 @@ class UserController extends Router {
     })(req, res, next);
   }
 
+  /** get /finduser -> returns  info of the user, need header Authorization with the jwt token */
   async findUser(req, res, next) {
     console.log(req.get('Authorization'));
     passport.authenticate('jwt', { session: false }, (err, user, info) => {
