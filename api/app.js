@@ -9,27 +9,11 @@ const cors = require('cors');
 const passport = require('passport');
 const MovieController = require('./controllers/MovieController');
 const GenreController = require('./controllers/GenreController');
+const UserController = require('./controllers/UserController');
+const UserInteractionsController = require('./controllers/UserInteractionsController');
 
 const indexRouter = require('./routes/index');
-const {
-  routerAllMovies,
-  routerSingleMovie,
-  randomMovie,
-  MovieGenre,
-  byGenre,
-  searchTitle,
-  getGenreId,
-  allGenres
-} = require('./routes/movieRouters');
 
-const registerUser = require('./routes/registerUser');
-const loginUser = require('./routes/loginUser');
-const findUser = require('./routes/findUser');
-const updateUser = require('./routes/updateInfo');
-
-const watchLater = require('./routes/watchLater');
-const getwatchlater = require('./routes/getArchivedMovies');
-const checkEligibliness = require('./routes/checkEligiblinessOfMovie');
 
 app.use(cors());
 require('./config/passport');
@@ -48,15 +32,8 @@ app.use(passport.initialize());
 app.use('/', indexRouter);
 const movieController = new MovieController('', app);
 const genreController = new GenreController('', app);
-
-app.use('/register', registerUser);
-app.use('/login', loginUser);
-app.use('/finduser', findUser);
-app.use('/allgenres', allGenres);
-app.use('/watchlater', watchLater);
-app.use('/getwatchlater', getwatchlater);
-app.use('/updateUser', updateUser);
-app.use('/checkMovie', checkEligibliness);
+const userController = new UserController('', app);
+const userInteractionsController = new UserInteractionsController('', app);
 
 
 // catch 404 and forward to error handler

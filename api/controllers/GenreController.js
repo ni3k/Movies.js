@@ -9,8 +9,14 @@ class GenreController extends Router {
   get services() {
     return {
       '/moviegenre/:movieId': 'movieGenre',
-      '/genreid/:id': 'getGenreId'
+      '/genreid/:id': 'getGenreId',
+      '/allgenres': 'allGenres'
     };
+  }
+
+  async allGenres(req, res) {
+    const relationsJson = (await Genre.findAll({ attributes: ['title', 'id'] }));
+    res.send({ genre: relationsJson });
   }
 
   async getGenreId(req, res) {
