@@ -22,7 +22,11 @@ class UserInteractionsController extends Router {
   /** /watchlater/:movieId -> inserts
    * (or deletes if the movie is already in the db) the movie in 'Watch later movies' db by
    * the name of archivedMovies, requires jwt token in header Authorization
-   * (works like a toggle) */
+   * (works like a toggle)
+   * @param {Request} req
+   * @param {number} req.params.movieId
+   * @param {Response} res
+   * @returns {object} */
   async watchLater(req, res, next) {
     passport.authenticate('jwt', { session: false }, async (err, user, info) => {
       if (err) {
@@ -51,7 +55,11 @@ class UserInteractionsController extends Router {
   /** /getwatchlater -> gets the list of watch later movies from archivedMovies db,
    * requires jwt token in headers Authorization
    * optional: limit (= 10 by default) and page (= 1 by default)
-   */
+   * @param {Request} req
+   * @param {number} req.query.limit
+   * @param {number} req.query.page
+   * @param {Response} res
+   * @returns {object} */
   async getWatchLater(req, res, next) {
     let offset = 0;
     const limit = parseInt(req.query.limit, 10) || 10;
@@ -83,7 +91,6 @@ class UserInteractionsController extends Router {
         offset,
         subQuery: false
       });
-      console.log(foundMovies);
       return res.send({
         movies: foundMovies,
         pages
@@ -92,7 +99,11 @@ class UserInteractionsController extends Router {
   }
 
   /** /checkMovie/:movieId -> checks a single entity of movie if
-   * is in the table archivedMovies or not, requires jwt token in headers Authorization */
+   * is in the table archivedMovies or not, requires jwt token in headers Authorization
+   * @param {Request} req
+   * @param {number} req.params.movieId
+   * @param {Response} res
+   * @returns {object} */
   async checkMovie(req, res, next) {
     const { movieId } = req.params;
     passport.authenticate('jwt', { session: false }, async (err, user, info) => {

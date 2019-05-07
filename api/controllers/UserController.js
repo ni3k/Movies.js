@@ -22,7 +22,13 @@ class UserController extends Router {
   }
 
   /** patch to /updateUser, requires firstName,
-   * lastName and email in req.body and jwt token in headers (Authorization) */
+   * lastName and email in req.body and jwt token in headers (Authorization)
+   * @param {Request} req
+   * @param {string} req.body.firstName
+   * @param {string} req.body.lastName
+   * @param {string} req.body.email
+   * @param {Response} res
+   * @returns {object} */
   async updateUser(req, res, next) {
     passport.authenticate('jwt', { session: false }, async (err, user, info) => {
       if (err) {
@@ -45,7 +51,14 @@ class UserController extends Router {
   }
 
   /** Post to /register, requires firstName, lastName,
-   * password and email in req.body, uses passport with the name register */
+   * password and email in req.body, uses passport with the name register
+   * @param {Request} req
+   * @param {string} req.body.firstName
+   * @param {string} req.body.lastName
+   * @param {string} req.body.email
+   * @param {string} req.body.password
+   * @param {Response} res
+   * @returns {object} */
   async registerUser(req, res, next) {
     console.log(req.body);
     passport.authenticate('register', (err, user, info) => {
@@ -82,7 +95,12 @@ class UserController extends Router {
     })(req, res, next);
   }
 
-  /** Post to /login, requires email and password in body, uses passport with the name login */
+  /** Post to /login, requires email and password in body, uses passport with the name login
+   * @param {Request} req
+   * @param {string} req.body.email
+   * @param {string} req.body.password
+   * @param {Response} res
+   * @returns {object} */
   async loginUser(req, res, next) {
     passport.authenticate('login', (err, user, info) => {
       console.log(user);

@@ -19,13 +19,20 @@ class GenreController extends Router {
     };
   }
 
-  /** /allgenres -> returns all genres from the db with attributes title and id */
+  /** /allgenres -> returns all genres from the db with attributes title and id
+   * @param {Request} req
+   * @param {Response} res
+   * @returns {object} */
   async allGenres(req, res) {
     const relationsJson = (await Genre.findAll({ attributes: ['title', 'id'] }));
     res.send({ genre: relationsJson });
   }
 
-  /** /genreid/:id -> returns the title of the genre by id (optional function) */
+  /** /genreid/:id -> returns the title of the genre by id (optional function)
+   * @param {Request} req
+   * @param {number} req.params.id
+   * @param {Response} res
+   * @returns {object} */
   async getGenreId(req, res) {
     const { id } = req.params;
     console.log(id);
@@ -34,7 +41,11 @@ class GenreController extends Router {
     res.send({ genre: relationsJson });
   }
 
-  /** /moviegenre/:movieId -> returns the movie genres by movie id (optional function) */
+  /** /moviegenre/:movieId -> returns the movie genres by movie id (optional function)
+   * @param {Request} req
+   * @param {number} req.params.movieId
+   * @param {Response} res
+   * @returns {object} */
   async movieGenre(req, res) {
     const { movieId } = req.params;
     console.log(movieId);

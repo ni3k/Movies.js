@@ -24,7 +24,12 @@ class MovieController extends Router {
   }
 
   /** /all_movies -> returns a list of movies ordered by
-   * the year, optional: ?limit=10 and ?page=1  */
+   * the year, optional: ?limit=10 and ?page=1
+   * @param {Request} req
+   * @param {number} req.query.limit
+   * @param {number} req.query.page
+   * @param {Response} res
+   * @returns {object} */
   async routerAllMovies(req, res) {
     let offset = 0;
     const limit = parseInt(req.query.limit, 10) || 10;
@@ -50,7 +55,11 @@ class MovieController extends Router {
     return res.send({ movies: MoviesJson, pages });
   }
 
-  /** /movie/:id -> returns movie object and generated ticket by videospider api */
+  /** /movie/:id -> returns movie object and generated ticket by videospider api
+   * @param {Request} req
+   * @param {number} req.params.id
+   * @param {Response} res
+   * @returns {object} */
   async routerSingleMovie(req, res) {
     const { id } = req.params;
     const moviesJson = await Movie.findAll({
@@ -66,7 +75,12 @@ class MovieController extends Router {
     res.send({ movies: moviesJson[0] });
   }
 
-  /** /random_movie -> returns a random movie from the db  */
+  /** /random_movie -> returns a random movie from the db
+   * @param {Request} req
+   * @param {number} req.query.limit
+   * @param {Response} res
+   * @returns {object}
+  */
   async randomMovie(req, res) {
     const limit = parseInt(req.query.number, 10) || 1;
     const MoviesJson = await Movie.findAll({ limit, order: [Sequelize.fn('RAND')], raw: true });
@@ -74,7 +88,13 @@ class MovieController extends Router {
   }
 
   /** /by_genre -> sorts movie by genre: requires ?genres=1,3,4
-   * (numbers of genre ids) and optional ?limit=10 and ?page = 1 */
+   * (numbers of genre ids) and optional ?limit=10 and ?page = 1
+   * @param {Request} req
+   * @param {number} req.query.limit
+   * @param {number} req.query.page
+   * @param {string} req.query.genres
+   * @param {Response} res
+   * @returns {object} */
   async byGenre(req, res) {
     let offset = 0;
     const limit = parseInt(req.query.limit, 10) || 10;
@@ -109,7 +129,13 @@ class MovieController extends Router {
   }
 
   /** /searchTitle -> returns movies with substring included
-   * in search query: requires ?title=blabla and optional ?limit=10 and ?page=1 */
+   * in search query: requires ?title=blabla and optional ?limit=10 and ?page=1
+   * @param {Request} req
+   * @param {number} req.query.limit
+   * @param {number} req.query.page
+   * @param {string} req.query.title
+   * @param {Response} res
+   * @returns {object} */
   async searchTitle(req, res) {
     let offset = 0;
     const limit = parseInt(req.query.limit, 10) || 10;
