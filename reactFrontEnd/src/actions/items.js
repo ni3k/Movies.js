@@ -141,6 +141,7 @@ export function toogleButton(seen) {
 export function checkElibility(id) {
   return async (dispatch) => {
     const token = localStorage.getItem('token');
+    if (!token) return;
     const { data: { movie } } = await api.get(`/checkMovie/${id}`, {
       headers: {
         Authorization: `JWT ${token}`,
