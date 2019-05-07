@@ -12,8 +12,11 @@ const GenreController = require('./controllers/GenreController');
 const UserController = require('./controllers/UserController');
 const UserInteractionsController = require('./controllers/UserInteractionsController');
 
-const indexRouter = require('./routes/index');
-
+// for api information
+const indexRouter = express.Router();
+indexRouter.get('/', (req, res) => {
+  res.render('index', { title: 'Express' });
+});
 
 app.use(cors());
 require('./config/passport');
