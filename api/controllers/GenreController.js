@@ -1,6 +1,6 @@
 /* eslint-disable class-methods-use-this */
 // eslint-disable-next-line class-methods-use-this
-const Router = require('./RouteCreator');
+const Router = require('../classes/RouteCreator');
 
 const Movie = require('../models/movie');
 const Genre = require('../models/genres');

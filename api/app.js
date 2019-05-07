@@ -7,8 +7,8 @@ const logger = require('morgan');
 const app = express();
 const cors = require('cors');
 const passport = require('passport');
-const MovieController = require('./classes/MovieController');
-const GenreController = require('./classes/GenreController');
+const MovieController = require('./controllers/MovieController');
+const GenreController = require('./controllers/GenreController');
 
 const indexRouter = require('./routes/index');
 const {

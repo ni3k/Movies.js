@@ -9,6 +9,7 @@ const archivedMovies = require('../models/archivedmovies');
 router.get('/:movieId', async (req, res) => {
   const { movieId } = req.params;
   const token = req.get('Authorization');
+  console.log(token);
   if (!token) {
     res.status(200).send({
       movies: []

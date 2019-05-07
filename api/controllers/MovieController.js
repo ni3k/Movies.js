@@ -2,7 +2,7 @@
 // eslint-disable-next-line class-methods-use-this
 const axios = require('axios');
 const Sequelize = require('sequelize');
-const Router = require('./RouteCreator');
+const Router = require('../classes/RouteCreator');
 
 const Movie = require('../models/movie');
 const Genre = require('../models/genres');
