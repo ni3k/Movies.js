@@ -5,10 +5,6 @@ const jwt = require('jsonwebtoken');
 const Router = require('../classes/RouteCreator');
 const User = require('../models/users');
 const jwtSecret = require('../config/jwtConfig');
-const archivedMovies = require('../models/archivedmovies');
-
-const Movie = require('../models/movie');
-const Genre = require('../models/genres');
 
 class UserController extends Router {
   get services() {
