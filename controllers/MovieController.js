@@ -109,14 +109,14 @@ class MovieController extends Router {
     const page = parseInt(req.query.page, 10) || 1;
     const { query: { title } } = req;
     if (title === undefined) {
-      res.send({ movies: [], pages: 0 });
+      res.send({ movies: [] });
     }
     const count = await Movie.count({
       where: { title: { [Sequelize.Op.substring]: title } }
     });
     const pages = Math.ceil(count / limit);
     if (page > pages) {
-      res.send({ movies: [], pages: 0 });
+      res.send({ movies: [] });
       return;
     }
     offset = limit * (page - 1);

@@ -71,7 +71,7 @@ class MovieGrid extends React.Component {
       return <Loading />;
     }
     return (
-      <Segment inverted>
+      <Segment inverted style={{ minHeight: '100vh' }}>
         <Container textAlign="center">
           <Header size="huge" inverted>
             { title }
@@ -88,15 +88,13 @@ class MovieGrid extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  console.log(state);
-  return ({
-    items: state.items,
-    hasErrored: state.itemsHasErrored,
-    isLoading: state.itemsIsLoading,
-    setedPage: state.setedPage,
-  })
-};
+const mapStateToProps = state => ({
+  items: state.items,
+  hasErrored: state.itemsHasErrored,
+  isLoading: state.itemsIsLoading,
+  setedPage: state.setedPage,
+});
+
 
 const mapDispatchToProps = dispatch => ({
   handeClick: id => dispatch(selectMovie(id)),

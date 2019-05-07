@@ -81,6 +81,7 @@ export function saveItem(movieId) {
   return async (dispatch) => {
     dispatch(itemsIsLoading(true));
     const token = localStorage.getItem('token');
+    console.log(token);
     await api.get(`/watchlater/${movieId}`, {
       headers: {
         Authorization: `JWT ${token}`,
