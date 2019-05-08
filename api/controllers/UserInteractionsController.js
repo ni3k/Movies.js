@@ -126,7 +126,6 @@ class UserInteractionsController extends Router {
         const { id } = user;
         //  check the db and return
         const found = await archivedMovies.findOne({ where: { userId: id, movieId } });
-        console.log(found);
         if (found === null) {
           res.send({ movie: false });
         }

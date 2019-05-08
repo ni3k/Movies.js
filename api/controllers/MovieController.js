@@ -37,9 +37,7 @@ class MovieController extends Router {
     const limit = parseInt(req.query.limit, 10) || 10;
     const page = parseInt(req.query.page, 10) || 1;
     const count = await Movie.count();
-    console.log(count, page);
     const pages = Math.ceil(count, 10 / limit);
-    console.log(pages);
     if (page > pages) {
       return res.send({ movies: [] });
     }
@@ -75,7 +73,6 @@ class MovieController extends Router {
     const ip = '188.237.151.9'; //  req.ip;
     const { data: ticket } = await axios.get(`https://videospider.in/getticket.php?key=gIBI3N1PHUQ0H9mB&secret_key=${process.env.SECRET_KEY_VIDEOSPIDER}&video_id=${moviesJson[0].imdbID}&ip=${ip}`);
     moviesJson[0].Ticket = ticket;
-    console.log(moviesJson);
     res.send({ movies: moviesJson[0] });
   }
 

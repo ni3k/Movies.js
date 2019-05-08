@@ -41,7 +41,6 @@ class GenreController extends Router {
    */
   async getGenreId(req, res) {
     const { id } = req.params;
-    console.log(id);
     const relationsJson = (await Genre.findByPk(id, { attributes: ['title'] }))
       .title;
     res.send({ genre: relationsJson });
@@ -56,7 +55,6 @@ class GenreController extends Router {
    */
   async movieGenre(req, res) {
     const { movieId } = req.params;
-    console.log(movieId);
     const genres = await Movie.findAll({
       raw: true,
       attributes: [],

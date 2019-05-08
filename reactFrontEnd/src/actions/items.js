@@ -81,7 +81,6 @@ export function saveItem(movieId) {
   return async (dispatch) => {
     dispatch(itemsIsLoading(true));
     const token = localStorage.getItem('token');
-    console.log(token);
     await api.get(`/watchlater/${movieId}`, {
       headers: {
         Authorization: `JWT ${token}`,
@@ -156,8 +155,6 @@ export function itemFetch(id) {
     dispatch(itemsIsLoading(true));
     const { data: { movies }, statusText } = await api.get(`/movie/${id}`);
     if (statusText !== 'OK') dispatch(itemsHasErrored(true));
-    //  converting to object like: id: [object]
-    console.log(movies);
     dispatch(selectedItem(movies));
     dispatch(itemGenres(movies.genres));
     dispatch(itemsIsLoading(false));

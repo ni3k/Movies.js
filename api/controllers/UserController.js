@@ -66,7 +66,6 @@ class UserController extends Router {
    * @returns {object}
    */
   async registerUser(req, res, next) {
-    console.log(req.body);
     passport.authenticate('register', (err, user, info) => {
       if (err) {
         res.status(200).send({ message: err });
@@ -111,7 +110,6 @@ class UserController extends Router {
    */
   async loginUser(req, res, next) {
     passport.authenticate('login', (err, user, info) => {
-      console.log(user);
       if (err) {
         res.status(200).send({
           auth: false,
@@ -148,7 +146,6 @@ class UserController extends Router {
    * get /finduser -> returns  info of the user, need header Authorization with the jwt token
    */
   async findUser(req, res, next) {
-    console.log(req.get('Authorization'));
     passport.authenticate('jwt', { session: false }, (err, user, info) => {
       if (err) {
         console.log(err);
@@ -158,8 +155,6 @@ class UserController extends Router {
         res.send(info.message);
       }
       else {
-        console.log('user found in db from route');
-        console.log(user);
         res.status(200).send({
           auth: true,
           id: user.id,
