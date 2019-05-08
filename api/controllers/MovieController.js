@@ -11,7 +11,9 @@ const Genre = require('../models/genres');
  * @constructor
  */
 class MovieController extends Router {
-  /** replaces the function services from Roter class (classes/RouteCreator) */
+  /**
+   * replaces the function services from Roter class (classes/RouteCreator)
+   */
   get services() {
     return {
       '/all_movies': 'routerAllMovies',
@@ -55,11 +57,13 @@ class MovieController extends Router {
     return res.send({ movies: MoviesJson, pages });
   }
 
-  /** /movie/:id -> returns movie object and generated ticket by videospider api
+  /**
+   * /movie/:id -> returns movie object and generated ticket by videospider api
    * @param {Request} req
    * @param {number} req.params.id
    * @param {Response} res
-   * @returns {object} */
+   * @returns {object}
+   */
   async routerSingleMovie(req, res) {
     const { id } = req.params;
     const moviesJson = await Movie.findAll({
@@ -75,7 +79,8 @@ class MovieController extends Router {
     res.send({ movies: moviesJson[0] });
   }
 
-  /** /random_movie -> returns a random movie from the db
+  /**
+   * /random_movie -> returns a random movie from the db
    * @param {Request} req
    * @param {number} req.query.limit
    * @param {Response} res
@@ -87,14 +92,16 @@ class MovieController extends Router {
     res.send({ movies: MoviesJson });
   }
 
-  /** /by_genre -> sorts movie by genre: requires ?genres=1,3,4
+  /**
+   * /by_genre -> sorts movie by genre: requires ?genres=1,3,4
    * (numbers of genre ids) and optional ?limit=10 and ?page = 1
    * @param {Request} req
    * @param {number} req.query.limit
    * @param {number} req.query.page
    * @param {string} req.query.genres
    * @param {Response} res
-   * @returns {object} */
+   * @returns {object}
+   */
   async byGenre(req, res) {
     let offset = 0;
     const limit = parseInt(req.query.limit, 10) || 10;
@@ -128,14 +135,16 @@ class MovieController extends Router {
     return res.send({ movies: foundMovies, pages });
   }
 
-  /** /searchTitle -> returns movies with substring included
+  /**
+   * /searchTitle -> returns movies with substring included
    * in search query: requires ?title=blabla and optional ?limit=10 and ?page=1
    * @param {Request} req
    * @param {number} req.query.limit
    * @param {number} req.query.page
    * @param {string} req.query.title
    * @param {Response} res
-   * @returns {object} */
+   * @returns {object}
+   */
   async searchTitle(req, res) {
     let offset = 0;
     const limit = parseInt(req.query.limit, 10) || 10;

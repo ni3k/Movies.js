@@ -11,7 +11,9 @@ const jwtSecret = require('../config/jwtConfig');
  * @constructor
  */
 class UserController extends Router {
-  /** replaces the function services from Roter class (classes/RouteCreator) */
+  /**
+   * replaces the function services from Roter class (classes/RouteCreator)
+   */
   get services() {
     return {
       'POST /register': 'registerUser',
@@ -21,14 +23,16 @@ class UserController extends Router {
     };
   }
 
-  /** patch to /updateUser, requires firstName,
+  /**
+   * patch to /updateUser, requires firstName,
    * lastName and email in req.body and jwt token in headers (Authorization)
    * @param {Request} req
    * @param {string} req.body.firstName
    * @param {string} req.body.lastName
    * @param {string} req.body.email
    * @param {Response} res
-   * @returns {object} */
+   * @returns {object}
+   */
   async updateUser(req, res, next) {
     passport.authenticate('jwt', { session: false }, async (err, user, info) => {
       if (err) {
@@ -50,7 +54,8 @@ class UserController extends Router {
     res.send({ succes: 0 });
   }
 
-  /** Post to /register, requires firstName, lastName,
+  /**
+   * Post to /register, requires firstName, lastName,
    * password and email in req.body, uses passport with the name register
    * @param {Request} req
    * @param {string} req.body.firstName
@@ -58,7 +63,8 @@ class UserController extends Router {
    * @param {string} req.body.email
    * @param {string} req.body.password
    * @param {Response} res
-   * @returns {object} */
+   * @returns {object}
+   */
   async registerUser(req, res, next) {
     console.log(req.body);
     passport.authenticate('register', (err, user, info) => {
@@ -95,12 +101,14 @@ class UserController extends Router {
     })(req, res, next);
   }
 
-  /** Post to /login, requires email and password in body, uses passport with the name login
+  /**
+   * Post to /login, requires email and password in body, uses passport with the name login
    * @param {Request} req
    * @param {string} req.body.email
    * @param {string} req.body.password
    * @param {Response} res
-   * @returns {object} */
+   * @returns {object}
+   */
   async loginUser(req, res, next) {
     passport.authenticate('login', (err, user, info) => {
       console.log(user);
@@ -136,7 +144,9 @@ class UserController extends Router {
     })(req, res, next);
   }
 
-  /** get /finduser -> returns  info of the user, need header Authorization with the jwt token */
+  /**
+   * get /finduser -> returns  info of the user, need header Authorization with the jwt token
+   */
   async findUser(req, res, next) {
     console.log(req.get('Authorization'));
     passport.authenticate('jwt', { session: false }, (err, user, info) => {
@@ -156,7 +166,6 @@ class UserController extends Router {
           firstName: user.firstName,
           lastName: user.lastName,
           email: user.email,
-          password: user.password,
           message: 'user found in db'
         });
       }
