@@ -30,7 +30,7 @@ const MovieCard = ({
     to={`/movie/${id}`}
     trigger={(
       <Card
-        style={{ height: 350 }}
+        style={{ heightMax: 350 }}
         inverted="true"
         as={Link}
         to={`/movie/${id}`}

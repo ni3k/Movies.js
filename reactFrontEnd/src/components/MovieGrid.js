@@ -35,7 +35,7 @@ class MovieGrid extends React.Component {
             <Grid.Column
               style={props}
               computer={4}
-              mobile={10}
+              mobile={15}
               stretched
               key={item.id}
               onClick={() => { handeClick(item.id); }
