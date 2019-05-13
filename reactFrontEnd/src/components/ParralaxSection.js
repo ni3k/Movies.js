@@ -3,7 +3,7 @@ import { Parallax, ParallaxLayer } from 'react-spring/renderprops-addons';
 import {
   Image, Header,
 } from 'semantic-ui-react';
-import './ParralaxSection.css';
+import '../styles/ParralaxSection.css';
 
 class ParralaxSection extends React.Component {
   componentDidMount() {

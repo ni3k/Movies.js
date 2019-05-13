@@ -4,8 +4,8 @@ import { css } from '@emotion/core';
 import { ScaleLoader } from 'react-spinners';
 
 const override = css`
-    display: block !important;
-    margin: 0 auto !important;
+    display: block;
+    margin: 0 auto;
     position: fixed;
     left: 50%;
     top: 50%;
