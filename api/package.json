@@ -30,7 +30,7 @@
         "passport-jwt": "^4.0.0",
         "passport-local": "^1.0.0",
         "random-int": "^2.0.0",
-        "sequelize": "^5.3.1"
+        "sequelize": "^5.15.1"
     },
     "devDependencies": {
         "eslint": "^5.16.0",
